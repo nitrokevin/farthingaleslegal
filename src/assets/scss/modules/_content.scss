@@ -55,3 +55,43 @@
 .grecaptcha-badge { 
   visibility: hidden;
 }
+
+.subheader{
+  text-transform: uppercase;
+}
+
+.services{
+  @include xy-grid();
+ 
+  padding:$global-padding*3 0;
+  position: relative;
+&:nth-of-type(even) {
+  background-color: $theme-color-1;
+   &:before {
+     background-color: inherit;
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 50%;
+     transform: translateX(-50%);
+     width: 100vw;
+     height: 100%;
+     z-index: -1;
+   }
+}
+
+  header{
+    @include xy-cell(5);
+     @include xy-grid();
+     @include flex-align($x:left, $y:stretch);
+
+    .post-thumbnail,
+    .entry-title {
+      width:100%;
+    }
+
+  }
+  .entry-content{
+     @include xy-cell(7);
+  }
+}

@@ -10,30 +10,22 @@ acf_add_local_field_group(array(
 	'title' => 'Page Options',
 	'fields' => array(
 	
-		array(
-			'key' => 'field_5c756acdc2285',
-			'label' => 'Background colour',
-			'name' => 'page_background_color',
-			'type' => 'swatch',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '25',
-				'class' => '',
-				'id' => '',
-			),
-			'choices' => $color_array,
-			'default_value' => array(
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'ui' => 1,
-			'ajax' => 0,
-			'layout' => 'horizontal',
-			'return_format' => 'label',
-			'placeholder' => '',
-		),
+		 array(
+            'key' => 'field_intro_button_text',
+            'label' => 'Button Text',
+            'name' => 'intro_button_text',
+            'type' => 'text',
+            'instructions' => 'Text shown on the intro button.',
+            'required' => 0,
+        ),
+        array(
+            'key' => 'field_intro_button_url',
+            'label' => 'Button URL',
+            'name' => 'intro_button_url',
+            'type' => 'page_link',
+            'instructions' => 'Where the button should link to.',
+            'required' => 0,
+        ),
 		
 	),
 	'location' => array(	

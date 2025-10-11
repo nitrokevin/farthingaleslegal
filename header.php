@@ -14,6 +14,10 @@ $sticky_header = get_theme_mod('sticky_header', true);
 $fixed_header  = get_theme_mod('fixed_header', true);
 $contained     = get_theme_mod('contained_header', true);
 $mobile_layout = get_theme_mod('foundationpress_mobile_menu_layout');
+$header_phone = get_theme_mod('contact_phone_number');
+
+
+
 ?>
 <!doctype html>
 <html class="no-js" <?php language_attributes(); ?> >
@@ -33,6 +37,8 @@ $mobile_layout = get_theme_mod('foundationpress_mobile_menu_layout');
 <?php endif; ?>
 <header class="site-header" role="banner">
 	<div class="site-title-bar title-bar" <?php foundationpress_title_bar_responsive_toggle(); ?>>
+		<div class="title-bar-left">
+		</div>
 		<div class="title-bar-center">
 			<span class="site-mobile-title title-bar-title">
 				<a href="<?php echo $home_url; ?>" title="<?php echo esc_attr($site_name); ?>" rel="home">
@@ -52,7 +58,12 @@ $mobile_layout = get_theme_mod('foundationpress_mobile_menu_layout');
 	<nav class="site-navigation top-bar" role="navigation" id="<?php foundationpress_mobile_menu_id(); ?>">
 		<div class="top-bar-inner-container <?php if ( $contained ) { ?>contained<?php } ?>">
 			<div class="top-bar-left">
-				<div class="site-desktop-title top-bar-title">
+				 
+				Tel: <?php echo $header_phone ?> | <?php echo do_shortcode('[social_links]'); ?> 
+			<?php foundationpress_top_bar_l(); ?>
+		</div>
+		<div class="top-bar-center">
+			<div class="site-desktop-title top-bar-title">
 					<a href="<?php echo $home_url; ?>" title="<?php echo esc_attr($site_name); ?>" rel="home">
 						<?php if ( $header_logo ) : ?>
 							<img src="<?php echo $header_logo; ?>" alt="<?php echo esc_attr($site_name); ?>">
@@ -61,7 +72,6 @@ $mobile_layout = get_theme_mod('foundationpress_mobile_menu_layout');
 						<?php endif; ?>
 					</a>
 				</div>
-			<?php foundationpress_top_bar_l(); ?>
 		</div>
 
 		<div class="top-bar-right">

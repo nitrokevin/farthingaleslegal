@@ -31,6 +31,10 @@ if ( ! function_exists( 'foundationpress_theme_support' ) ) :
 		// Add post thumbnail support: http://codex.wordpress.org/Post_Thumbnails
 		add_theme_support( 'post-thumbnails' );
 
+		//Remove patterns
+		remove_theme_support( 'core-block-patterns' );
+		
+
 		// RSS thingy
 		add_theme_support( 'automatic-feed-links' );
 

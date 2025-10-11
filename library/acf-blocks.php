@@ -801,14 +801,12 @@ acf_add_local_field_group(array(
         'id' => '',
     ),
     'choices' => array(
-        'people-carousel' => 'People carousel',
+       
         'slide-carousel' => 'Slide Carousel',
-        
-   
 
     ),
     'default_value' => array(
-        0 => 'gallery-carousel',
+        0 => 'slide-carousel',
     ),
     'allow_null' => 0,
     'multiple' => 0,
@@ -842,8 +840,61 @@ acf_add_local_field_group(array(
     'other_choice' => 0,
     'save_other_choice' => 0,
     ),
+
+     array(
+            'key' => 'field_carousel_subheader',
+            'label' => 'Sub Header',
+            'name' => 'carousel_subheader',
+            'type' => 'text',
+            'instructions' => 'Small header',
+            'required' => 0,
+        ),
+		 array(
+            'key' => 'field_carousel_header',
+            'label' => 'Header',
+            'name' => 'carousel_header',
+            'type' => 'text',
+            'instructions' => 'Large header',
+            'required' => 0,
+        ),
+            array(
+                        'key' => 'field_carousel_intro',
+                        'label' => 'Intro',
+                        'name' => 'carousel_intro',
+                        'type' => 'wysiwyg',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'default_value' => '',
+                        'tabs' => 'all',
+                        'toolbar' => 'full',
+                        'media_upload' => 0,
+                        'delay' => 0,
+                    ),
     
-      
+       // Toggle for Image
+    array(
+        'key' => 'field_show_carousel_image',
+        'label' => 'Show Carousel Images',
+        'name' => 'show_carousel_image',
+        'type' => 'true_false',
+        'ui' => 1,
+        'default_value' => 0,
+    ),
+          // Toggle for button
+    array(
+        'key' => 'field_show_carousel_button',
+        'label' => 'Show Carousel Button',
+        'name' => 'show_carousel_button',
+        'type' => 'true_false',
+        'ui' => 1,
+        'default_value' => 0,
+    ),
          array(
             'key' => 'field_5c812a7a8hgh19bf',
             'label' => 'People Group',
@@ -935,7 +986,15 @@ acf_add_local_field_group(array(
             'type' => 'image',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => 0,
+            'conditional_logic' => array(
+            array(
+                array(
+                    'field'    => 'field_show_carousel_image',
+                    'operator' => '==',
+                    'value'    => '1',
+                ),
+            ),
+        ),
             'wrapper' => array(
                 'width' => '',
                 'class' => '',
@@ -1010,6 +1069,41 @@ acf_add_local_field_group(array(
             'toolbar' => 'full',
             'media_upload' => 1,
             'delay' => 0,
+        ),
+        	 array(
+            'key' => 'field_carousel_button_text',
+            'label' => 'Button Text',
+            'name' => 'carousel_button_text',
+            'type' => 'text',
+            'conditional_logic' => array(
+            array(
+                array(
+                    'field'    => 'field_show_carousel_button',
+                    'operator' => '==',
+                    'value'    => '1',
+                ),
+            ),
+        ),
+        'default_value' => 'Find out more',
+            'instructions' => '',
+            'required' => 0,
+        ),
+        array(
+            'key' => 'field_carousel_button_url',
+            'label' => 'Button Link',
+            'name' => 'carousel_button_url',
+            'type' => 'page_link',
+                'conditional_logic' => array(
+            array(
+                array(
+                    'field'    => 'field_show_carousel_button',
+                    'operator' => '==',
+                    'value'    => '1',
+                ),
+            ),
+        ),
+            'instructions' => 'Where the button should link to.',
+            'required' => 0,
         ),
     ),
     ),

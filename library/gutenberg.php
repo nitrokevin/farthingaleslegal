@@ -1,16 +1,12 @@
 <?php
-
 if ( ! function_exists( 'foundationpress_gutenberg_support' ) ) :
-	function foundationpress_gutenberg_support() {
-        // Load color array from separate file
+    function foundationpress_gutenberg_support() {
+        // Load colors
         include 'colors.php';
-
         $editor_colors = array();
 
         foreach ( $colors as $slug => $color ) {
-            // Convert slug to a readable label: e.g., 'theme-color-1' -> 'Theme Color 1'
             $name = ucwords(str_replace(array('-', '_'), ' ', $slug));
-
             $editor_colors[] = array(
                 'name'  => __( $name, 'foundationpress' ),
                 'slug'  => $slug,
@@ -19,7 +15,25 @@ if ( ! function_exists( 'foundationpress_gutenberg_support' ) ) :
         }
 
         add_theme_support( 'editor-color-palette', $editor_colors );
-	}
 
-	add_action( 'after_setup_theme', 'foundationpress_gutenberg_support' );
+
+        // Load gradients
+        include 'gradients.php';
+        $editor_gradients = array();
+
+        foreach ( $gradients as $slug => $gradient ) {
+            $name = ucwords(str_replace(array('-', '_'), ' ', $slug));
+            $editor_gradients[] = array(
+                'name'     => __( $name, 'foundationpress' ),
+                'slug'     => $slug,
+                'gradient' => $gradient,
+            );
+        }
+
+        add_theme_support( 'editor-gradient-presets', $editor_gradients );
+
+        // Optional: disable WP defaults
+        add_theme_support( 'disable-custom-gradients' ); // stops user-defined ones too
+    }
+    add_action( 'after_setup_theme', 'foundationpress_gutenberg_support' );
 endif;

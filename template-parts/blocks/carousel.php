@@ -25,11 +25,19 @@ if( !empty($block['align']) ) {
 }
 $carousel_type = get_field('carousel_type');
 $section_background = get_field('section_background');
+$carousel_header = get_field('carousel_header');
+$carousel_subheader = get_field('carousel_subheader');
+$carousel_intro = get_field('carousel_intro');
 
 ?>
-<section id="<?php echo esc_attr($id); ?>" class="wp-block <?php echo esc_attr($className); ?>  <?php echo $carousel_type; ?>   <?php echo $section_background; ?> " >
+<section id="<?php echo esc_attr($id); ?>" class=" <?php echo esc_attr($className); ?>  <?php echo $carousel_type; ?>   <?php echo $section_background; ?> " >
     <div class="block-carousel-container "> 
 		<div class="block-carousel-grid" >
+			<div class="block-carousel-header">
+				<p class="subheader"><?php echo $carousel_subheader ?></p>
+				<h2><?php echo $carousel_header ?></h2>
+				<?php echo $carousel_intro ?>
+			</div>
 			<div class="block-carousel-content" >
 		
 	<?php if($carousel_type == 'people-carousel'){

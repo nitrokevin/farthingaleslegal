@@ -18,12 +18,65 @@ Frontend styles for gutenberg blocks
       background-color: $code;
       transition: background-color .25s ease-out,
                   color .25s ease-out;
+    &:hover {
+      background-color: darken($code,15%); // adjust % to taste
+    }
   }
+    
 
   .wp-block-button__link.has-#{$color}-color {
       color: $code;
   }
 }
+
+/** === Gradient Palette === */
+// Define a map of “base colors” for contrast
+$gradient-base-colors: (primary: $primary-color);
+
+@each $slug,
+$gradient in $foundation-gradients {
+  $base: map-get($gradient-base-colors, $slug);
+
+  .has-#{$slug}-gradient-background {
+    background: $gradient;
+    color: color-pick-contrast($base, $colors: ($white, $black), $tolerance: $global-color-pick-contrast-tolerance);
+
+    @include breakpoint(small only) {
+      .has-primary-gradient-background {
+        background: radial-gradient(ellipse 70% 40% at 65% 60%,
+            hsl(275deg 83% 35%) 0%,
+            hsl(275deg 83% 33%) 10%,
+            hsl(275deg 83% 32%) 15%,
+            hsl(275deg 82% 31%) 19%,
+            hsl(275deg 82% 30%) 23%,
+            hsl(275deg 82% 29%) 27%,
+            hsl(275deg 82% 28%) 31%,
+            hsl(275deg 81% 27%) 34%,
+            hsl(275deg 81% 26%) 38%,
+            hsl(275deg 81% 25%) 41%,
+            hsl(275deg 81% 24%) 45%,
+            hsl(275deg 81% 23%) 48%,
+            hsl(275deg 81% 22%) 51%,
+            hsl(275deg 81% 21%) 55%,
+            hsl(275deg 81% 20%) 58%,
+            hsl(275deg 81% 19%) 61%,
+            hsl(275deg 80% 18%) 65%,
+            hsl(274deg 80% 17%) 68%,
+            hsl(274deg 80% 16%) 72%,
+            hsl(274deg 80% 15%) 76%,
+            hsl(274deg 80% 14%) 80%,
+            hsl(274deg 80% 13%) 84%,
+            hsl(274deg 81% 12%) 90%,
+            hsl(275deg 83% 11%) 100%);
+      }
+    }
+  }
+   .wp-block-button__link.has-#{$slug}-gradient-background {
+     background: $gradient;
+     transition: background-color 0.25s ease-out;
+   }
+}
+
 
 /** === Button === */
 .wp-block-button {
@@ -43,6 +96,7 @@ Frontend styles for gutenberg blocks
 		@extend .hollow;
     background: transparent;
 	}
+
 }
 
 /** === File === */
@@ -51,11 +105,13 @@ Frontend styles for gutenberg blocks
 }
 
 /** === Group === */
+.wp-block-group{
+  padding:$global-padding*2 0;
+}
 .wp-block-group.alignfull {
   margin-left: calc( -50vw + 50%  );
   margin-right: calc( -50vw + 50% );
   max-width: 100vw;
-  padding:$global-padding 0;
   overflow-x: hidden;
   .wp-block-group__inner-container{
     @include xy-grid-container;
@@ -92,5 +148,25 @@ Frontend styles for gutenberg blocks
   }
   @include breakpoint(medium){
     font-size: rem-calc(16);
+  }
+}
+
+
+//Block cover image
+
+.wp-block-cover.alignfull{
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  max-width: 100vw;
+
+  .wp-block-cover__inner-container{
+      @include xy-grid-container(52rem);
+
+      @each $breakpoint,
+      $size in $grid-margin-gutters {
+        @include breakpoint($breakpoint) {
+          padding: $global-padding $size;
+        }
+      }
   }
 }

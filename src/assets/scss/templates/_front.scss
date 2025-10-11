@@ -1,15 +1,72 @@
 // Page header
 .front-hero {
+  width: 100%;
+  height: 100%;
+  /* or any container height */
+  background-image: radial-gradient(ellipse 70% 40% at 65% 60%,
+    hsl(275deg 83% 35%) 0%,
+    hsl(275deg 83% 33%) 10%,
+    hsl(275deg 83% 32%) 15%,
+    hsl(275deg 82% 31%) 19%,
+    hsl(275deg 82% 30%) 23%,
+    hsl(275deg 82% 29%) 27%,
+    hsl(275deg 82% 28%) 31%,
+    hsl(275deg 81% 27%) 34%,
+    hsl(275deg 81% 26%) 38%,
+    hsl(275deg 81% 25%) 41%,
+    hsl(275deg 81% 24%) 45%,
+    hsl(275deg 81% 23%) 48%,
+    hsl(275deg 81% 22%) 51%,
+    hsl(275deg 81% 21%) 55%,
+    hsl(275deg 81% 20%) 58%,
+    hsl(275deg 81% 19%) 61%,
+    hsl(275deg 80% 18%) 65%,
+    hsl(274deg 80% 17%) 68%,
+    hsl(274deg 80% 16%) 72%,
+    hsl(274deg 80% 15%) 76%,
+    hsl(274deg 80% 14%) 80%,
+    hsl(274deg 80% 13%) 84%,
+    hsl(274deg 81% 12%) 90%,
+    hsl(275deg 83% 11%) 100%);
+ @include breakpoint(large) {
+  background-image: radial-gradient(
+    ellipse 40% 60% at 55% 60%,
+              hsl(275deg 83% 35%) 0%,
+              hsl(275deg 83% 33%) 10%,
+              hsl(275deg 83% 32%) 15%,
+              hsl(275deg 82% 31%) 19%,
+              hsl(275deg 82% 30%) 23%,
+              hsl(275deg 82% 29%) 27%,
+              hsl(275deg 82% 28%) 31%,
+              hsl(275deg 81% 27%) 34%,
+              hsl(275deg 81% 26%) 38%,
+              hsl(275deg 81% 25%) 41%,
+              hsl(275deg 81% 24%) 45%,
+              hsl(275deg 81% 23%) 48%,
+              hsl(275deg 81% 22%) 51%,
+              hsl(275deg 81% 21%) 55%,
+              hsl(275deg 81% 20%) 58%,
+              hsl(275deg 81% 19%) 61%,
+              hsl(275deg 80% 18%) 65%,
+              hsl(274deg 80% 17%) 68%,
+              hsl(274deg 80% 16%) 72%,
+              hsl(274deg 80% 15%) 76%,
+              hsl(274deg 80% 14%) 80%,
+              hsl(274deg 80% 13%) 84%,
+              hsl(274deg 81% 12%) 90%,
+              hsl(275deg 83% 11%) 100%);
+ }
+
   .marketing {
-    @include xy-grid-container(55rem);
+    @include xy-grid-container();
     @include xy-grid;
   }
 
   @include breakpoint(small) {
     background-size: cover;
     background-position: bottom;
-    padding: rem-calc(65%) 0;
-    margin: 0 0 rem-calc(32);
+    padding: rem-calc(75%) 0;
+    margin: 0;
     height: auto;
     position: relative;
     text-align: left;
@@ -19,23 +76,99 @@
     background-size: cover;
     background-position: center;
     height: rem-calc(600);
-    margin: 0 0 rem-calc(72);
+    margin: 0;
   }
+    @include breakpoint(large) {
+      background-size: cover;
+      background-position: center;
+      height: rem-calc(800);
+      margin: 0;
+    }
 
   .tagline {
     @include breakpoint(small) {
-      @include xy-cell(8);
+      @include xy-cell(11);
+      padding-top: 5rem;
     }
 
     @include breakpoint(medium) {
-      @include xy-cell(5);
-      padding-top: 6rem;
+      @include xy-cell(6);
+      padding-top: 8rem;
     }
+      @include breakpoint(large) {
+        @include xy-cell(6);
+        padding-top: 10rem;
+      }
+         @include breakpoint(xlarge) {
+           @include xy-cell(6);
+           padding-top: 12rem;
+         }
+  }
+  .hero-image{
+
+     @include breakpoint(small) {
+       @include xy-cell(12);
+       padding-top: 2rem;
+     }
+
+     @include breakpoint(medium) {
+       @include xy-cell(6);
+       padding-top: 7rem;
+     }
+
+     @include breakpoint(large) {
+       @include xy-cell(6);
+       padding-top: 8rem;
+     }
+
+     @include breakpoint(xlarge) {
+       @include xy-cell(6);
+       padding-top: 10rem;
+     }
+img {
+  width: 100%;
+}
   }
 
-  h1 {
-    color: #fff;
+  h1,p {
+    color: $theme-color-1;
   }
+  $hero-header: (
+    h1: (small: 35,
+      medium: 42,
+      large: 55,
+      xlarge: 63),
+      p:(small: 18,
+        medium: 19,
+        large: 20,
+        xlarge: 21));
+    
+  // Mixin to apply font sizes dynamically
+  @mixin responsive-font($element) {
+    $sizes: map-get($hero-header, $element);
+
+    @each $size,
+    $value in $sizes {
+      $bp: map-get($breakpoints, $size);
+
+      @if $bp==0 or $bp==null {
+        font-size: rem-calc($value);
+      }
+
+      @else {
+        @media (min-width: $bp) {
+          font-size: rem-calc($value);
+        }
+      }
+    }
+  }
+  h1{
+     @include responsive-font(h1);
+  }
+  p{
+     @include responsive-font(p);
+  }
+  
 }
 
 // Intro

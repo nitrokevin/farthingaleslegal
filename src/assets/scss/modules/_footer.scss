@@ -1,6 +1,7 @@
 .footer{
   background-position: center;
   background-repeat: no-repeat;
+  border-top: 1rem solid $theme-color-2;
 .footer-container {
   @include xy-grid-container;
 
@@ -9,7 +10,11 @@
 .footer-grid {
   @include xy-grid;
   @include flex-align($x:center, $y:top);
-  padding: rem-calc(30) 0;
+  padding: rem-calc(80) 0;
+
+  .subheader{
+    color:$white;
+  }
 
   section {
     @include xy-cell(12);
@@ -36,7 +41,7 @@
       @include breakpoint(medium) {
         @include xy-cell(12);
         order:3;
-        text-align: center;
+        text-align: left;
       }
 
       @include breakpoint(large) {
@@ -55,6 +60,9 @@
       order:2;
       text-align: right;
       @include menu-align(right);
+       a {
+         padding-right: 0;
+       }
       }
       @include breakpoint(large) {
         
@@ -83,8 +91,10 @@ display: block;
     @include menu-align(left);
     a {padding: 0.7rem 1rem 0.7rem 0;}
     @include breakpoint(medium) {
-   a {padding: 0.7rem 0 0.7rem 1rem;}
-   justify-content: flex-end;
+   a {
+     padding: 0.7rem 1rem 0.7rem 0;
+   }
+   justify-content: flex-start;
     }
    
   }
@@ -95,9 +105,7 @@ display: block;
     list-style-type: none;
     margin: 0;
     padding: 0;
-    a{
-      padding-left:0;
-    }
+   
   }
 }
 }

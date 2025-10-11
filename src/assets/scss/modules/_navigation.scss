@@ -1,15 +1,19 @@
 // Navigation breakpoints
 .mobile-menu,
 .site-title-bar {
-  @include hide-for(medium);
+  @include hide-for(large);
 }
 
 //
 .desktop-menu,
 .top-bar{
-  @include show-for(medium);
+  @include show-for(large);
 }
-
+.site-header{
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
 // Site title
 .site-desktop-title a {
   font-weight: bold;
@@ -34,6 +38,7 @@
 .title-bar-center {
   flex: 2;
   img{width:100%;}
+  max-width: 11rem;
 }
 .title-bar-left, .title-bar-right {
   flex: 1;
@@ -51,13 +56,17 @@
     .top-bar-left,
     .top-bar-center,
     .top-bar-right {
-      flex: 1;
+      flex: 2;
       img{
-        max-width: 16rem;
+        max-width: 14rem;
       padding: $global-padding}
     }
+     .top-bar-left{
+      margin-left: 0.9375rem;
+     }
 
     .top-bar-center {
+       flex: 1;
       text-align: center;
      
     }
@@ -66,6 +75,25 @@
       text-align: right;
     }
   }
+    .social-inline {
+      font-size: rem-calc(18);
+        color: $theme-color-1;
+      @include menu-align(left);
+
+     
+        padding: 0.7rem 1rem 0.7rem 0;
+     
+      
+
+      @include breakpoint(medium) {
+      
+          padding: 0.7rem 1rem 0.7rem 0.2rem;
+        
+
+        justify-content: flex-start;
+      }
+
+    }
 }
 
 .sticky-container {

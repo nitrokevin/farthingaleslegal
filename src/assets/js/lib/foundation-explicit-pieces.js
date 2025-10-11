@@ -17,7 +17,7 @@ import { Accordion } from 'foundation-sites/js/foundation.accordion';
 // import { Dropdown } from 'foundation-sites/js/foundation.dropdown';
 import { DropdownMenu } from 'foundation-sites/js/foundation.dropdownMenu';
 // import { Equalizer } from 'foundation-sites/js/foundation.equalizer';
-import { Interchange } from 'foundation-sites/js/foundation.interchange';
+// import { Interchange } from 'foundation-sites/js/foundation.interchange';
 // import { Magellan } from 'foundation-sites/js/foundation.magellan';
 import { OffCanvas } from 'foundation-sites/js/foundation.offcanvas';
 // import { Orbit } from 'foundation-sites/js/foundation.orbit';
@@ -27,10 +27,10 @@ import { ResponsiveToggle } from 'foundation-sites/js/foundation.responsiveToggl
 import { Slider } from 'foundation-sites/js/foundation.slider';
 import { SmoothScroll } from 'foundation-sites/js/foundation.smoothScroll';
 import { Sticky } from 'foundation-sites/js/foundation.sticky';
-import { Tabs } from 'foundation-sites/js/foundation.tabs';
+// import { Tabs } from 'foundation-sites/js/foundation.tabs';
 // import { Toggler } from 'foundation-sites/js/foundation.toggler';
 // import { Tooltip } from 'foundation-sites/js/foundation.tooltip';
-import { ResponsiveAccordionTabs } from 'foundation-sites/js/foundation.responsiveAccordionTabs';
+// import { ResponsiveAccordionTabs } from 'foundation-sites/js/foundation.responsiveAccordionTabs';
 
 
 Foundation.addToJquery($);
@@ -72,7 +72,7 @@ Foundation.plugin(DropdownMenu, 'DropdownMenu');
 
 // Foundation.plugin(Equalizer, 'Equalizer');
 
-Foundation.plugin(Interchange, 'Interchange');
+// Foundation.plugin(Interchange, 'Interchange');
 
 // Foundation.plugin(Magellan, 'Magellan');
 
@@ -92,12 +92,12 @@ Foundation.plugin(SmoothScroll, 'SmoothScroll');
 
 Foundation.plugin(Sticky, 'Sticky');
 
-Foundation.plugin(Tabs, 'Tabs');
+// Foundation.plugin(Tabs, 'Tabs');
 
 // Foundation.plugin(Toggler, 'Toggler');
 
 // Foundation.plugin(Tooltip, 'Tooltip');
 
-Foundation.plugin(ResponsiveAccordionTabs, 'ResponsiveAccordionTabs');
+// Foundation.plugin(ResponsiveAccordionTabs, 'ResponsiveAccordionTabs');
 
 export default Foundation;

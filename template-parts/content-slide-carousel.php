@@ -18,11 +18,11 @@
                 };
                 ?>
                 <div class="swiper-slide <?php echo esc_attr($carousel_background_color); ?>">
-                   <div class="info">
+                 <div class="info">
 				<h3><?php echo $carousel_heading ?></h3>
 
-				<?php echo $carousel_content; ?>
-			</div>
+				<span><?php echo $carousel_content; ?></span>
+			
 				<?php if($carousel_image){ ?>
 				<div class="image image-decoration">
 				<img src="<?php 
@@ -32,7 +32,16 @@
 					srcset="<?php echo esc_attr($image_srcset); ?>"
 					sizes="(max-width: 100vw) 480px" alt="<?php echo $image['alt']; ?> "/>
 			</div>
+			
 			<?php } ?>
+			 <?php if ( get_sub_field('carousel_button_url') && get_sub_field('carousel_button_text') ) : ?>
+                <div class="carousel-button">
+                    <a href="<?php the_sub_field('carousel_button_url'); ?>" class="primary">
+                        <?php the_sub_field('carousel_button_text'); ?>
+                    </a>
+                </div>
+            <?php endif; ?>
+				 </div>
                 </div>
             <?php } ?>
         <?php } ?>
@@ -66,6 +75,13 @@
 					sizes="(max-width: 100vw) 480px" alt="<?php echo $image['alt']; ?> "/>
 			</div>
 			<?php } ?>
+			  <?php if ( get_sub_field('carousel_button_url') && get_sub_field('carousel_button_text') ) : ?>
+                <div class="carousel-button">
+                    <a href="<?php the_sub_field('carousel_button_url'); ?>" class="button theme-color-2">
+                        <?php the_sub_field('carousel_button_text'); ?>
+                    </a>
+                </div>
+            <?php endif; ?>
 			</li>
 			
 			<?php } ?>

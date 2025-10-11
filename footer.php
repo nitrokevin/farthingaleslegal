@@ -7,16 +7,16 @@
  * @package FoundationPress
  * @since FoundationPress 1.0.0
  */
-$footer_phone = get_theme_mod('footer_phone_number');
-$footer_email = get_theme_mod('footer_email');
+$contact_phone = get_theme_mod('contact_phone_number');
+$contact_email = get_theme_mod('contact_email');
 $footer_company_number = get_theme_mod('footer_company_number');
 $footer_copyright = get_theme_mod('footer_copyright');
-$footer_address_1 = get_theme_mod('footer_address_1');
-$footer_address_2 = get_theme_mod('footer_address_2');
-$footer_address_3 = get_theme_mod('footer_address_3');
-$footer_address_4 = get_theme_mod('footer_address_4');
-$footer_address_5 = get_theme_mod('footer_address_5');
-$footer_address_6 = get_theme_mod('footer_address_6');
+$contact_address_1 = get_theme_mod('contact_address_1');
+$contact_address_2 = get_theme_mod('contact_address_2');
+$contact_address_3 = get_theme_mod('contact_address_3');
+$contact_address_4 = get_theme_mod('contact_address_4');
+$contact_address_5 = get_theme_mod('contact_address_5');
+$contact_address_6 = get_theme_mod('contact_address_6');
 $footer_background_image = get_theme_mod('footer_background_image');
 $site_name = get_bloginfo('name', 'display');
 
@@ -31,48 +31,31 @@ $socials = [
 ];
 
 $social_icons = [
-    'facebook' => 'fab fa-facebook-f fa-fw',
-    'x' => 'fab fa-x-twitter fa-fw',
-    'instagram' => 'fab fa-instagram fa-fw',
-    'linkedin' => 'fab fa-linkedin-in fa-fw',
-    'pinterest' => 'fab fa-pinterest fa-fw',
-    'youtube' => 'fab fa-youtube fa-fw',
-    'tiktok' => 'fab fa-tiktok fa-fw',
+    'facebook' => 'fa-brands fa-facebook-f fa-fw',
+    'x' => 'fa-brands fa-x-twitter fa-fw',
+    'instagram' => 'fa-brands fa-instagram fa-fw',
+    'linkedin' => 'fa-brands fa-linkedin-in fa-fw',
+    'pinterest' => 'fa-brands fa-pinterest fa-fw',
+    'youtube' => 'fa-brands fa-youtube fa-fw',
+    'tiktok' => 'fa-brands fa-tiktok fa-fw',
 ];
 
-if ($footer_background_image) {
-    $sizes = [
-        'small' => wp_get_attachment_image_url($footer_background_image, 'fp-small'),
-        'medium' => wp_get_attachment_image_url($footer_background_image, 'fp-medium'),
-        'large' => wp_get_attachment_image_url($footer_background_image, 'fp-large'),
-        'xlarge' => wp_get_attachment_image_url($footer_background_image, 'fp-xlarge'),
-    ];
-}
+
 
 ?>
 
-<footer class="footer" <?php if ($footer_background_image) { ?> data-interchange="[<?php echo esc_url($sizes['small']); ?>, small], [<?php echo esc_url($sizes['medium']); ?>, medium], [<?php echo esc_url($sizes['large']); ?>, large], [<?php echo esc_url($sizes['xlarge']); ?>, xlarge]" data-type="background"<?php } ?>>
+<footer class="footer" >
     <div class="footer-container">
         <div class="footer-grid">
-            <?php dynamic_sidebar('footer-widgets'); ?>
-        </div>
-        <div class="footer-grid">
 
             <section>
-                <?php foundationpress_footer_nav_l(); ?>
-                <ul class="footer-contact menu  footer-menu">
-                    <li><?php echo esc_html($footer_address_1); ?></li>
-                    <li><?php echo esc_html($footer_address_2); ?></li>
-                    <li><?php echo esc_html($footer_address_3); ?></li>
-                    <li><?php echo esc_html($footer_address_4); ?></li>
-                    <li><?php echo esc_html($footer_address_5); ?></li>
-                    <li><?php echo esc_html($footer_address_6); ?></li>
-                    <li>&copy; <?php echo esc_html($site_name) . ' ' . date('Y'); ?></li>
+                <p class="subheader">Get in touch</p>
+                  <ul class="footer-contact menu  footer-menu">
+                    <li><?php echo esc_html($contact_phone); ?></li>
+                    <li><?php echo esc_html($contact_email); ?></li>
                 </ul>
-
-            </section>
-            <section>
-                <ul class="social-links menu  footer-menu align-center">
+                <?php foundationpress_footer_nav_l(); ?>
+                <ul class="social-links menu  footer-menu align-left">
                     <?php foreach ($social_icons as $key => $icon_class) : ?>
                         <?php if (!empty($socials[$key])) : ?>
                             <li><a href="<?php echo esc_url($socials[$key]); ?>" rel="noreferrer" target="_blank" aria-label="<?php echo ucfirst($key); ?>">
@@ -81,8 +64,22 @@ if ($footer_background_image) {
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
+
             </section>
             <section>
+                <p class="subheader">Find us</p>
+                  <ul class="footer-contact menu  footer-menu">
+                    <li><?php echo esc_html($contact_address_1); ?></li>
+                    <li><?php echo esc_html($contact_address_2); ?></li>
+                    <li><?php echo esc_html($contact_address_3); ?></li>
+                    <li><?php echo esc_html($contact_address_4); ?></li>
+                    <li><?php echo esc_html($contact_address_5); ?></li>
+                    <li><?php echo esc_html($contact_address_6); ?></li>
+                </ul>
+              
+            </section>
+            <section>
+                <p class="subheader">Legal</p>
                 <?php foundationpress_footer_nav_r(); ?>
                 <?php
                 $footer_links = get_theme_mod('footer_links');
@@ -96,6 +93,7 @@ if ($footer_background_image) {
                         <?php endforeach; ?>
                     </div>
                 <?php } ?>
+                 &copy; <?php echo esc_html($site_name) . ' ' . date('Y'); ?>
             </section>
         </div>
     </div>

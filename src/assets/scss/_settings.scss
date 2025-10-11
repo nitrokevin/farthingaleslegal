@@ -71,28 +71,51 @@ $global-font-size: 100%;
 $global-width: rem-calc(1260);
 $global-lineheight: 1.5;
 $foundation-palette: (
-  primary: #24382C,
-  secondary: #E1C789,
+  primary: #640FA1,
+  secondary: #210535,
   success: #3adb76,
   warning: #ffae00,
   alert: #cc4b37,
   light-gray: #e6e6e6,
   medium-gray: #cacaca,
   dark-gray: #4A4A4A,
-  theme-color-1:#ADD6C2,
-  theme-color-2 : #525D8D,
-  theme-color-3: #DEE8F1,
-  theme-color-4: #8C3C40,
+  "white":#fefefe,
+  theme-color-1:#F7F0FD,
+  theme-color-2 : #4FD1C5,
 );
+$foundation-gradients: (primary: radial-gradient(ellipse 40% 60% at 55% 60%,
+    hsl(275deg 83% 35%) 0%,
+    hsl(275deg 83% 33%) 10%,
+    hsl(275deg 83% 32%) 15%,
+    hsl(275deg 82% 31%) 19%,
+    hsl(275deg 82% 30%) 23%,
+    hsl(275deg 82% 29%) 27%,
+    hsl(275deg 82% 28%) 31%,
+    hsl(275deg 81% 27%) 34%,
+    hsl(275deg 81% 26%) 38%,
+    hsl(275deg 81% 25%) 41%,
+    hsl(275deg 81% 24%) 45%,
+    hsl(275deg 81% 23%) 48%,
+    hsl(275deg 81% 22%) 51%,
+    hsl(275deg 81% 21%) 55%,
+    hsl(275deg 81% 20%) 58%,
+    hsl(275deg 81% 19%) 61%,
+    hsl(275deg 80% 18%) 65%,
+    hsl(274deg 80% 17%) 68%,
+    hsl(274deg 80% 16%) 72%,
+    hsl(274deg 80% 15%) 76%,
+    hsl(274deg 80% 14%) 80%,
+    hsl(274deg 80% 13%) 84%,
+    hsl(274deg 81% 12%) 90%,
+    hsl(275deg 83% 11%) 100%)
+ );
 $theme-color-1:get-color(theme-color-1);
 $theme-color-2 : get-color(theme-color-2);
-$theme-color-3: get-color(theme-color-3);
-$theme-color-4: get-color(theme-color-4);
 $light-gray:  get-color(light-gray);
 $medium-gray:get-color(medium-gray);
 $dark-gray: get-color(dark-gray);
 $black: #0a0a0a;
-$white: #fefefe;
+$white: get-color("white");
 $body-background: $white;
 $body-font-color: $black;
 $body-font-family: 'Nunito Sans', Helvetica, Roboto, Arial, sans-serif;
@@ -158,21 +181,21 @@ $header-font-weight: $global-weight-bold;
 $header-font-style: normal;
 $font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
 $header-color: inherit;
-$header-lineheight: 1.2;
+$header-lineheight: 1;
 $header-margin-bottom: 1rem;
 $header-styles: (
   small: (
     'p' : ('font-size': 16),
-    'h1': ('font-size': 24),
-    'h2': ('font-size': 20),
-    'h3': ('font-size': 19),
+    'h1': ('font-size': 32),
+    'h2': ('font-size': 30),
+    'h3': ('font-size': 28),
     'h4': ('font-size': 18),
     'h5': ('font-size': 17),
     'h6': ('font-size': 16),
   ),
   medium: (
     'p' : ('font-size': 16),
-    'h1': ('font-size': 30),
+    'h1': ('font-size': 40),
     'h2': ('font-size': 40),
     'h3': ('font-size': 31),
     'h4': ('font-size': 25),
@@ -241,7 +264,7 @@ $subheader-lineheight: 1.2;
 $subheader-color: $black;
 $subheader-font-weight: $global-weight-bold;
 $subheader-margin-top: 0.5rem;
-$subheader-margin-bottom: 0.5rem;
+$subheader-margin-bottom: 0.2rem;
 $stat-font-size: 2.5rem;
 $cite-color: $dark-gray;
 $cite-font-size: rem-calc(13);
@@ -454,7 +477,7 @@ $dropdownmenu-padding: $global-menu-padding;
 $dropdownmenu-nested-margin: 0;
 $dropdownmenu-submenu-padding: $dropdownmenu-padding;
 $dropdownmenu-border: 1px solid $medium-gray;
-$dropdown-menu-item-color-active: get-color(primary);
+$dropdown-menu-item-color-active: get-color(theme-color-2);
 $dropdown-menu-item-background-active: transparent;
 
 // 19. Flexbox Utilities
@@ -880,12 +903,12 @@ $thumbnail-radius: $global-radius;
 // 53. Title Bar
 // -------------
 
-$titlebar-background: $black;
+$titlebar-background: transparent;
 $titlebar-color: $white;
 $titlebar-padding: 0.5rem;
 $titlebar-text-font-weight: bold;
-$titlebar-icon-color: $primary-color;
-$titlebar-icon-color-hover: $medium-gray;
+$titlebar-icon-color: $theme-color-1;
+$titlebar-icon-color-hover: $theme-color-2;
 $titlebar-icon-spacing: 0.25rem;
 
 // 54. Tooltip
@@ -906,10 +929,10 @@ $tooltip-radius: $global-radius;
 // 55. Top Bar
 // -----------
 
-$topbar-padding: 0.5rem;
+$topbar-padding: 0.3rem;
 $topbar-background: transparent;
 $topbar-submenu-background: transparent;
-$topbar-title-spacing: 0.5rem 1rem 0.5rem 0;
+$topbar-title-spacing: 0;
 $topbar-input-width: 200px;
 $topbar-unstack-breakpoint: large;
 

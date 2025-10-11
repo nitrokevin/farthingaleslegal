@@ -179,3 +179,31 @@ function my_remove_admin_menus() {
     remove_menu_page('edit-comments.php');
 }
 add_action('admin_menu', 'my_remove_admin_menus');
+
+
+function avidd_social_links_inline_shortcode($atts) {
+    $atts = shortcode_atts([
+        'class' => '', // allow user to pass a class
+    ], $atts, 'social_links');
+
+    $links = [];
+
+    $social_sites = [
+        'facebook' => 'fa-brands fa-facebook-f',
+        'twitter'  => 'fa-brands fa-x-twitter',
+        'instagram'=> 'fa-brands fa-instagram',
+        'linkedin' => 'fa-brands fa-linkedin-in',
+        'pinterest'=> 'fa-brands fa-pinterest',
+        'tiktok'   => 'fa-brands fa-tiktok',
+    ];
+
+    foreach ($social_sites as $key => $icon_class) {
+        if (get_theme_mod('social-' . $key)) {
+            $url = esc_url(get_theme_mod('social-' . $key . '-url'));
+            $links[] = '<a href="' . $url . '" target="_blank" rel="noreferrer" aria-label="' . ucfirst($key) . '" class="social-inline ' . esc_attr($atts['class']) . '"><i class="' . $icon_class . '"></i></a>';
+        }
+    }
+
+    return implode(' ', $links);
+}
+add_shortcode('social_links', 'avidd_social_links_inline_shortcode');
