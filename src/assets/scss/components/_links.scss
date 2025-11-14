@@ -6,3 +6,8 @@
 [data-whatinput="touch"] a:focus, button:focus {
   outline: none;
 }
+
+.main-container a,
+.intro a{
+  font-weight: bold;
+}

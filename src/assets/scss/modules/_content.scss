@@ -27,6 +27,7 @@
   // Full width template
   .main-content-full-width {
     @include xy-cell(12);
+   
   }
 
   // Default template
@@ -38,6 +39,9 @@
     @include breakpoint(medium) {
       @include xy-cell(8);
     }
+    &.post{
+       margin-top: 3rem;
+    }
   }
 
   .sidebar {
@@ -48,6 +52,9 @@
     @include breakpoint(medium) {
       @include xy-cell(4);
       margin-top: 1rem;
+    }
+    .wp-block-latest-posts__list{
+      margin-left: 0;
     }
 
   }
@@ -81,7 +88,10 @@
 }
 
   header{
+     @include xy-cell(12);
+@include breakpoint(medium) {
     @include xy-cell(5);
+}
      @include xy-grid();
      @include flex-align($x:left, $y:stretch);
 
@@ -92,6 +102,56 @@
 
   }
   .entry-content{
+     @include xy-cell(12);
+
+     @include breakpoint(medium) {
      @include xy-cell(7);
+     }
   }
 }
+.wp-block-post-template{
+  margin-left:0;
+}
+aside.wp-block-query{
+  li{
+   
+    display:flex;
+    .wp-block-post-featured-image{
+      margin-bottom:$global-margin;
+    }
+   
+    .insight-image {
+      flex: 1 30%;
+
+      @include breakpoint(medium) {
+        flex: 1 30%;
+      }
+    }
+    .wp-block-post-title
+   {
+      flex:1 70%;
+      @include breakpoint(medium){
+      flex:1 70%;
+      }
+    }
+    .wp-block-post-title{
+       
+      margin-left:$global-margin;
+       
+    }
+   
+  }
+}
+
+aside.sidebar{
+
+   .wp-block-latest-posts__featured-image {
+     margin-bottom: $global-margin;
+   }
+
+}
+
+  .opening-times {
+    list-style: none;
+    margin-left:0;
+  }

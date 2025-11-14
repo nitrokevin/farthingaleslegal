@@ -5,7 +5,7 @@
   padding-left: 0;
   padding-right: 0;
   padding-top:2rem;
-  padding-bottom:2rem;
+  padding-bottom:4rem;
 
   &.alignfull {
     .block-carousel-grid {
@@ -122,20 +122,21 @@ $code in $foundation-palette {
      transparent 100%);
    mask-repeat: no-repeat;
    mask-size: 100% 100%;
-   padding: 0 .7rem !important;
+   padding: 1rem .7rem !important;
    @include breakpoint(large) {
   padding: 0 1.7rem !important;
    }
   .swiper-wrapper {
     margin-left: 0;
     box-sizing: border-box;
+   
  
 
     .swiper-slide {
       box-sizing: border-box;
       margin-right: 16px;
        padding:1rem;
-       margin:1rem 0;
+       margin:1rem 0 2rem 0;
        @include breakpoint(large) {
         padding:2rem;
         margin:3rem 0;
@@ -154,7 +155,9 @@ $code in $foundation-palette {
        transform: scale(0.8);
       transition: transform 1s ease, max-height 1.5s ease, box-shadow 2s ease;
      
-
+        .info{
+          padding: 0 0 1rem 0;
+        }
        .info p,
        .info .carousel-button {
          opacity: 0;
@@ -170,7 +173,7 @@ $code in $foundation-palette {
         0px 20px 20px rgba(3, 7, 18, 0.08),
         0px 32px 32px rgba(3, 7, 18, 0.10);
         transform: scale(1);
-        max-height: 400px;
+        max-height: 420px;
         transition: transform 0.5s ease,
         max-height 1.5s ease,
         box-shadow 2s ease;

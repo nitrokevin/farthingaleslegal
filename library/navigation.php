@@ -88,7 +88,7 @@ if ( ! function_exists( 'foundationpress_footer_nav_r' ) ) {
 		wp_nav_menu(
 			array(
 				'container'      => false,
-				'menu_class'     => 'dropdown menu desktop-menu align-right',
+				'menu_class'     => 'vertical menu desktop-menu align-right',
 				'items_wrap'     => '<ul id="%1$s" class="%2$s footer-right-menu" >%3$s</ul>',
 				'theme_location' => 'footer-nav-r',
 				'depth'          => 3,

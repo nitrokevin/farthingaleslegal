@@ -11,22 +11,22 @@
  */
 
 get_header();
-
+$intro_text = get_field('intro_text');
 ?>
 
 <header class="page-hero">
     <div class="marketing">
         <div class="tagline">
             <h1 class="entry-title"><?php the_title(); ?></h1>
-            <p><?php echo esc_html( get_bloginfo( 'description' ) ); ?></p>
+            <p><?php echo esc_html( $intro_text ); ?></p>
 
             <?php 
-            $intro_url  = get_field('intro_button_url');
-            $intro_text = get_field('intro_button_text');
-            if ( $intro_url && $intro_text ) : ?>
+            $intro_button_url  = get_field('intro_button_url');
+            $intro_button_text = get_field('intro_button_text');
+            if ( $intro_button_url && $intro_button_text ) : ?>
                 <div class="intro-button">
-                    <a href="<?php echo esc_url($intro_url); ?>" class="button theme-color-2">
-                        <?php echo esc_html($intro_text); ?>
+                    <a href="<?php echo esc_url($intro_button_url); ?>" class="button theme-color-2">
+                        <?php echo esc_html($intro_button_text); ?>
                     </a>
                 </div>
             <?php endif; ?>
@@ -45,7 +45,7 @@ get_header();
                         [
                             'class' => '',
                             'alt'   => $alt_text ?: get_the_title(),
-                            'sizes' => '(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 50vw',
+                       'sizes' => '(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 500px'
                         ] 
                     ); 
                 ?>

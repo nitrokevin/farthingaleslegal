@@ -81,7 +81,7 @@ $foundation-palette: (
   dark-gray: #4A4A4A,
   "white":#fefefe,
   theme-color-1:#F7F0FD,
-  theme-color-2 : #4FD1C5,
+  theme-color-2 : #4CACA1,
 );
 $foundation-gradients: (primary: radial-gradient(ellipse 40% 60% at 55% 60%,
     hsl(275deg 83% 35%) 0%,
@@ -196,7 +196,7 @@ $header-styles: (
   medium: (
     'p' : ('font-size': 16),
     'h1': ('font-size': 40),
-    'h2': ('font-size': 40),
+    'h2': ('font-size': 36),
     'h3': ('font-size': 31),
     'h4': ('font-size': 25),
     'h5': ('font-size': 20),
@@ -205,7 +205,7 @@ $header-styles: (
   large: (
     'p' : ('font-size': 16),
     'h1': ('font-size': 38),
-    'h2': ('font-size': 40),
+    'h2': ('font-size': 34),
     'h3': ('font-size': 31),
     'h4': ('font-size': 25),
     'h5': ('font-size': 20),
@@ -214,7 +214,7 @@ $header-styles: (
   xlarge: (
     'p' : ('font-size': 16),
     'h1': ('font-size': 42),
-    'h2': ('font-size': 40),
+    'h2': ('font-size': 38),
     'h3': ('font-size': 31),
     'h4': ('font-size': 25),
     'h5': ('font-size': 20),
@@ -882,13 +882,13 @@ $tab-background: $white;
 $tab-color: $primary-color;
 $tab-background-active: $light-gray;
 $tab-active-color: $primary-color;
-$tab-item-font-size: rem-calc(12);
+$tab-item-font-size: rem-calc(20);
 $tab-item-background-hover: $white;
-$tab-item-padding: 1.25rem 1.5rem;
+$tab-item-padding: 1.5rem 1.5rem;
 $tab-content-background: $white;
 $tab-content-border: $light-gray;
 $tab-content-color: $body-font-color;
-$tab-content-padding: 1rem;
+$tab-content-padding: 1rem 0 0 0;
 
 // 52. Thumbnail
 // -------------

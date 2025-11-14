@@ -14,28 +14,29 @@
  * @package FoundationPress
  * @since FoundationPress 1.0.0
  */
+get_header(); 
+$intro_text = get_field('intro_text');
+?>
 
-get_header(); ?>
 <header class="page-hero">
     <div class="marketing">
         <div class="tagline">
             <h1 class="entry-title"><?php echo post_type_archive_title(); ?></h1>
-            <p><?php echo esc_html( get_bloginfo( 'description' ) ); ?></p>
+            <p><?php echo esc_html( $intro_text ); ?></p>
 
             <?php 
-            $intro_url  = get_field('intro_button_url');
-            $intro_text = get_field('intro_button_text');
-            if ( $intro_url && $intro_text ) : ?>
+            $intro_button_url  = get_field('intro_button_url');
+            $intro_button_text = get_field('intro_button_text');
+            if ( $intro_button_url && $intro_button_text ) : ?>
                 <div class="intro-button">
-                    <a href="<?php echo esc_url($intro_url); ?>" class="button theme-color-2">
-                        <?php echo esc_html($intro_text); ?>
+                    <a href="<?php echo esc_url($intro_button_url); ?>" class="button theme-color-2">
+                        <?php echo esc_html($intro_button_text); ?>
                     </a>
                 </div>
             <?php endif; ?>
         </div>
+	</div>
 
-    
-    </div>
 </header>
 <div class="main-container">
 	<div class="main-grid">

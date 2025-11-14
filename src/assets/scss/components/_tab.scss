@@ -27,6 +27,7 @@
 }
 .tabs,
 .tabs-content{
+	display: flex;
 	@each $color, $code in $foundation-palette {
 
 		
@@ -53,6 +54,8 @@
 
 	}
 }
-
+.tabs-title, .tabs-panel{
+	flex:1;
+}
 
 }

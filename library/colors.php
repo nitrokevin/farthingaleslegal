@@ -8,7 +8,7 @@ $colors = [
     'dark-gray' => '#4A4A4A',
     'black' => '#0a0a0a',
     'theme-color-1' => '#F7F0FD',
-	 'theme-color-2' => '#4FD1C5',
+	 'theme-color-2' => '#4CACA1',
     'white' => '#fefefe',
     'transparent' => 'transparent'
 ];

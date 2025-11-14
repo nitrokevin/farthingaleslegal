@@ -58,4 +58,38 @@ window.addEventListener('load', () => {
 
    
   });
+
+  const resourcesContainers = document.querySelectorAll('.swiper.resourcescarousel');
+
+  resourcesContainers.forEach(container => {
+    const swiper = new Swiper(container, {
+      direction: 'horizontal',
+      loop: true,
+      slidesPerView: 5,
+      spaceBetween: 20,
+      observer: true,
+      observeParents: true,
+      navigation: {
+        nextEl: container.querySelector('.swiper-button-next'),
+        prevEl: container.querySelector('.swiper-button-prev'),
+      },
+      autoplay: {
+        delay: 6400,
+        disableOnInteraction: false,
+      },
+      speed: 1600,
+      breakpoints: {
+        0: { // from 0px width
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        640: { // from 640px width
+          slidesPerView: 5,
+          spaceBetween: 20,
+        }
+      },
+    });
+
+    swiper.update();
+  });
 });;

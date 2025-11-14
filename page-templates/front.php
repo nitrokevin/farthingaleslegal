@@ -37,7 +37,7 @@ get_header();
                         [
                             'class' => '',
                             'alt'   => $alt_text ?: get_the_title(),
-                            'sizes' => '(max-width: 600px) 100vw, (max-width: 1024px) 50vw, (max-width: 1920px) 50vw, 50vw',
+                             'sizes' => '(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 600px'
                         ] 
                     ); 
                 ?>
@@ -61,17 +61,6 @@ get_header();
 </section>
 <?php endwhile; ?>
 <?php do_action( 'foundationpress_after_content' ); ?>
-<?php
-if (have_rows('flexible_content')) :
-	while (have_rows('flexible_content')) : the_row();
-	get_template_part('template-parts/acf/flexible-article');
-	get_template_part('template-parts/acf/flexible-grid');
-	get_template_part('template-parts/acf/full-width-50-50');
-	get_template_part('template-parts/acf/accordion');
-	get_template_part('template-parts/acf/tab');
-	get_template_part('template-parts/acf/carousel');
-	endwhile;
-endif;
-?>
+
 
 <?php get_footer();

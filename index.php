@@ -40,12 +40,12 @@ get_header(); ?>
                 <?php 
                     echo wp_get_attachment_image( 
                         $thumb_id, 
-                        'fp-large', // desired size
+                        'fp-medium', // desired size
                         false, 
                         [
                             'class' => '',
                             'alt'   => $alt_text ?: get_the_title(),
-                            'sizes' => '(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 50vw',
+                             'sizes' => '(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 500px'
                         ] 
                     ); 
                 ?>

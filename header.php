@@ -13,7 +13,6 @@ $header_logo   = esc_url(get_theme_mod('header_logo'));
 $sticky_header = get_theme_mod('sticky_header', true);
 $fixed_header  = get_theme_mod('fixed_header', true);
 $contained     = get_theme_mod('contained_header', true);
-$mobile_layout = get_theme_mod('foundationpress_mobile_menu_layout');
 $header_phone = get_theme_mod('contact_phone_number');
 
 
@@ -28,9 +27,9 @@ $header_phone = get_theme_mod('contact_phone_number');
 </head>
 <body <?php body_class(); ?>>
 
-<?php if ( $mobile_layout === 'offcanvas' ) : ?>
-	<?php get_template_part( 'template-parts/mobile-off-canvas' ); ?>
-<?php endif; ?>
+<?php if (get_theme_mod('wpt_mobile_menu_layout') === 'offcanvas') : ?>
+		<?php get_template_part( 'template-parts/mobile-off-canvas' ); ?>
+	<?php endif; ?>
 <?php if ( $sticky_header ) : ?>
 <div data-sticky-container class="<?php echo ($fixed_header && has_post_thumbnail()) ? 'fixed-header' : ''; ?>">
 	<div data-sticky data-sticky-on="small" data-options="marginTop:0; z-index:100;">
@@ -58,9 +57,12 @@ $header_phone = get_theme_mod('contact_phone_number');
 	<nav class="site-navigation top-bar" role="navigation" id="<?php foundationpress_mobile_menu_id(); ?>">
 		<div class="top-bar-inner-container <?php if ( $contained ) { ?>contained<?php } ?>">
 			<div class="top-bar-left">
-				 
-				Tel: <?php echo $header_phone ?> | <?php echo do_shortcode('[social_links]'); ?> 
-			<?php foundationpress_top_bar_l(); ?>
+				 <div class="top-bar-item header-phone">
+				Tel: <?php echo $header_phone ?></div>
+				 <div class="top-bar-item social-links">
+				 <?php echo do_shortcode('[social_links]'); ?>
+					</div>
+					 <?php foundationpress_top_bar_l(); ?>
 		</div>
 		<div class="top-bar-center">
 			<div class="site-desktop-title top-bar-title">
@@ -76,9 +78,9 @@ $header_phone = get_theme_mod('contact_phone_number');
 
 		<div class="top-bar-right">
 		<?php foundationpress_top_bar_r(); ?>
-			<?php if ( ! $mobile_layout || $mobile_layout === 'topbar' ) : ?>
-				<?php get_template_part( 'template-parts/mobile-top-bar' ); ?>
-			<?php endif; ?>
+			<?php if ( ! get_theme_mod( 'foundationpress_mobile_menu_layout' ) || get_theme_mod( 'foundationpress_mobile_menu_layout' ) === 'topbar' ) : ?>
+					<?php get_template_part( 'template-parts/mobile-top-bar' ); ?>
+				<?php endif; ?>
 		</div>
 	</div>
 	</nav>

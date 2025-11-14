@@ -9,6 +9,14 @@ acf_add_local_field_group(array(
 	'key' => 'group_5c756aae12c9d',
 	'title' => 'Page Options',
 	'fields' => array(
+		 array(
+            'key' => 'field_intro_text',
+            'label' => 'Intro Text',
+            'name' => 'intro_text',
+            'type' => 'text',
+            'instructions' => 'Text shown below the title.',
+            'required' => 0,
+        ),
 	
 		 array(
             'key' => 'field_intro_button_text',
@@ -56,54 +64,17 @@ acf_add_local_field_group(array(
 ));
 
 
+
 //FAQ OPTIONS PAGE
 acf_add_local_field_group(array(
 	'key' => 'group_5d54589f208266',
 	'title' => 'Options Page',
 	'fields' => array(
-		array(
-			'key' => 'field_5c3j4ede232af66',
-			'label' => 'Accordion',
-			'name' => 'repeater_accordion',
-			'type' => 'repeater',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'collapsed' => '',
-			'min' => 0,
-			'max' => 0,
-			'layout' => 'block',
-			'button_label' => 'Add Section',
-			'sub_fields' => array(
-		array(
-			'key' => 'field_5d49ad43a131e16',
-			'label' => 'Section heading',
-			'name' => 'section_heading',
-			'type' => 'text',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '33',
-				'class' => '',
-				'id' => '',
-			),
-			'default_value' => '',
-			'placeholder' => '',
-			'prepend' => '',
-			'append' => '',
-			'maxlength' => '',
-		),
 		
 		array(
 			'key' => 'field_5c34ede232af66',
-			'label' => 'Accordion Content',
-			'name' => 'repeater_content_accordion',
+			'label' => 'FAQ',
+			'name' => 'faq_repeater',
 			'type' => 'repeater',
 			'instructions' => '',
 			'required' => 0,
@@ -182,8 +153,8 @@ acf_add_local_field_group(array(
 				),
 			),
 		),
-	),
-),
+	
+
 ),
 
 	'location' => array(
@@ -204,6 +175,7 @@ acf_add_local_field_group(array(
 		'active' => true,
 		'description' => '',
 ));
+
 
 acf_add_local_field_group(array(
 		'key' => 'group_5d54589f208269',
@@ -336,6 +308,54 @@ acf_add_local_field_group(array(
 		'description' => '',
 	));
 
+
+	//Resources
+
+acf_add_local_field_group(array(
+	'key' => 'group_5c75uguf6aae12c9d',
+	'title' => 'Resources',
+	'fields' => array(
+			array(
+				'key' => 'field_resources_file',
+				'label' => 'File',
+				'name' => 'file',
+				'type' => 'file',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'return_format' => 'array',
+				'preview_size' => 'thumbnail',
+				'library' => 'all',
+				
+			),
+		
+	),
+	'location' => array(	
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'resources',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => false,
+));
+
+	
 
 } //END ACF 
 

@@ -36,6 +36,7 @@ function register_acf_blocks() {
     register_block_type(  __DIR__ . '/acf-accordion/block.json' );
     register_block_type(  __DIR__ . '/acf-carousel/block.json' );
     register_block_type(  __DIR__ . '/acf-tab/block.json' );
+ register_block_type(  __DIR__ . '/acf-global-content-selector/block.json' );
 
 
     }
@@ -788,7 +789,7 @@ acf_add_local_field_group(array(
 	'title' => 'Block: Carousel',
 	'fields' => array(
         array(
-    'key' => 'field_5c3812a7a819bf1',
+    'key' => 'field_carousel_type',
     'label' => 'Carousel Type',
     'name' => 'carousel_type',
     'type' => 'select',
@@ -803,6 +804,7 @@ acf_add_local_field_group(array(
     'choices' => array(
        
         'slide-carousel' => 'Slide Carousel',
+        'resourcescarousel' => 'Resources Carousel',
 
     ),
     'default_value' => array(
@@ -883,6 +885,15 @@ acf_add_local_field_group(array(
         'label' => 'Show Carousel Images',
         'name' => 'show_carousel_image',
         'type' => 'true_false',
+          'conditional_logic' => array(
+        array(
+            array(
+                'field' => 'field_carousel_type',
+                'operator' => '==',
+                'value' => 'slide-carousel',
+            ),
+        ),
+    ),
         'ui' => 1,
         'default_value' => 0,
     ),
@@ -892,6 +903,15 @@ acf_add_local_field_group(array(
         'label' => 'Show Carousel Button',
         'name' => 'show_carousel_button',
         'type' => 'true_false',
+          'conditional_logic' => array(
+        array(
+            array(
+                'field' => 'field_carousel_type',
+                'operator' => '==',
+                'value' => 'slide-carousel',
+            ),
+        ),
+    ),
         'ui' => 1,
         'default_value' => 0,
     ),
@@ -904,7 +924,7 @@ acf_add_local_field_group(array(
             'required' => 0,
             'conditional_logic' => array(
         array(
-            'field' => 'field_5c3812a7a819bf1',
+            'field' => 'field_carousel_type',
             'operator' => '==',
             'value' => 'people-carousel',
         ),
@@ -937,7 +957,7 @@ acf_add_local_field_group(array(
     'required' => 0,
     'conditional_logic' => array(
         array(
-            'field' => 'field_5c3812a7a819bf1',
+            'field' => 'field_carousel_type',
             'operator' => '==',
             'value' => 'gallery-carousel',
         ),
@@ -962,7 +982,7 @@ acf_add_local_field_group(array(
     'conditional_logic' => array(
         array(
             array(
-                'field' => 'field_5c3812a7a819bf1',
+                'field' => 'field_carousel_type',
                 'operator' => '==',
                 'value' => 'slide-carousel',
             ),
@@ -1107,6 +1127,39 @@ acf_add_local_field_group(array(
         ),
     ),
     ),
+
+        array(
+			'key' => 'field_65478hfhjhac392d92',
+			'label' => 'Resource type',
+			'name' => 'resource_type_taxonomy',
+			'aria-label' => '',
+			'type' => 'taxonomy',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+                  array(
+                    'field' => 'field_carousel_type',
+            'operator' => '==',
+            'value' => 'resourcescarousel',
+                     ),
+                 ),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'taxonomy' => 'resource_categories',
+			'add_term' => 1,
+			'save_terms' => 1,
+			'load_terms' => 0,
+			'return_format' => 'id',
+			'field_type' => 'select',
+			'allow_null' => 1,
+			'bidirectional' => 0,
+			'multiple' => 1,
+			'bidirectional_target' => array(
+			),
+        ),
   
    
 
@@ -1132,6 +1185,80 @@ acf_add_local_field_group(array(
     'show_in_rest' => 0,
     )
 );   
+
+
+
+// Global Content Selector
+acf_add_local_field_group(array(
+    'key' => 'group_global_content_selector',
+    'title' => 'Block: Global Content Selector',
+    'fields' => array(
+        array(
+            'key' => 'field_global_content_source',
+            'label' => 'Options Page Source',
+            'name' => 'options_page_selector',
+            'type' => 'select',
+            'instructions' => 'Select which global options page to pull data from.',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 1,
+            'ajax' => 0,
+            'return_format' => 'value',
+            'placeholder' => 'Select an options page',
+        ),
+        array(
+    'key' => 'field_layout_selector',
+    'label' => 'Layout Style',
+    'name' => 'layout_style',
+    'type' => 'select',
+    'instructions' => 'Choose how the content should be displayed.',
+    'required' => 0,
+    'conditional_logic' => 0,
+    'wrapper' => array(
+        'width' => '',
+        'class' => '',
+        'id' => '',
+    ),
+    'choices' => array(
+        'accordion' => 'Accordion',
+        'list'      => 'List',
+        'columns'      => 'Columns',
+        'vertical-tab' => 'Vertical Tabs',
+    ),
+    'allow_null' => 0,
+    'multiple' => 0,
+    'ui' => 1,
+    'ajax' => 0,
+    'return_format' => 'value',
+    'placeholder' => 'Select layout style',
+),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'block',
+                'operator' => '==',
+                'value' => 'acf/global-content-selector',
+            ),
+        ),
+    ),
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'seamless',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+    'active' => true,
+    'show_in_rest' => 0,
+    'description' => '',
+));
 
 
 } ?>

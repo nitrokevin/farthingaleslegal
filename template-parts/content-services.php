@@ -18,7 +18,7 @@
 		if ( is_single() ) {
 			echo '<h1 class="entry-title">' . esc_html( get_the_title() ) . '</h1>';
 		} else {
-			echo '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . esc_html( get_the_title() ) . '</a></h2>';
+				echo '<h2 class="entry-title">' . esc_html( get_the_title() ) . '</h2>';
 		}
 	?>
 	<?php if ( ! is_single() && has_post_thumbnail() ) : ?>
@@ -28,9 +28,9 @@
 			</a>
 		</div>
 	<?php endif; ?>
-	<div class="align-self-bottom">
+	<!-- <div class="align-self-bottom">
 	<a href="/contact-us" class=" button small">Book a consultation</a>
-	</div>
+	</div> -->
 	</header>
 	<div class="entry-content">
 		<?php if ( is_single() ) { 

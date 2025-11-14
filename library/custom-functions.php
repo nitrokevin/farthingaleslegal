@@ -29,6 +29,26 @@ function a_unautop($content) {
 }
 add_filter('acf_the_content', 'a_unautop', 30);
 
+/**
+ * Dynamic ACF field population
+ * Used for populating select fields with data from ACF options pages or custom sources.
+ */
+
+add_filter('acf/load_field/name=options_page_selector', function($field) {
+    $field['choices'] = [];
+
+    if (function_exists('acf_get_options_pages')) {
+        $options_pages = acf_get_options_pages();
+        if ($options_pages) {
+            foreach ($options_pages as $slug => $page) {
+                $field['choices'][$slug] = $page['page_title'];
+            }
+        }
+    }
+
+    return $field;
+});
+
 // ------------------------------------------------------------
 // GUTENBERG SUPPORT
 // ------------------------------------------------------------
@@ -207,3 +227,72 @@ function avidd_social_links_inline_shortcode($atts) {
     return implode(' ', $links);
 }
 add_shortcode('social_links', 'avidd_social_links_inline_shortcode');
+
+
+// Register the shortcode for opening times
+function opening_times_shortcode($atts) {
+    $atts = shortcode_atts(
+        array(
+            'title' => esc_html__('Opening Hours', 'avidd'), 
+        ),
+        $atts,
+        'opening_times'
+    );
+    $opening_times = get_theme_mod('opening_times');
+    if ( ! empty( $opening_times ) ) {
+        ob_start(); // Start output buffering
+        // echo '<div class="opening-hours-title heading">';
+        // echo esc_html($atts['title']); 
+        // echo '</div>';
+        // Output the opening times list
+         echo '<p>';
+          echo '<strong>Office Hours</strong>';
+         echo '</p">';
+        echo '<ul class="opening-times">';
+        foreach ( $opening_times as $time ) {
+            $day = isset( $time['day'] ) ? esc_html( $time['day'] ) : '';
+            $hours = isset( $time['hours'] ) ? esc_html( $time['hours'] ) : '';
+            ?>
+            <li>
+                <?php echo $day; ?><br />
+                <strong><?php echo $hours; ?></strong>
+            </li>
+            <?php
+        }
+        echo '</ul>';
+        echo '<small>';
+        echo '';
+        echo '</small>';
+        return ob_get_clean(); // Return the output buffer content
+    }
+    return ''; // Return empty if no opening times are set
+}
+// Register the shortcode [opening_times]
+add_shortcode('opening_times', 'opening_times_shortcode');
+
+
+
+
+// --- Handle AJAX form submission ---
+add_action('wp_ajax_nopriv_save_email', 'save_email');
+add_action('wp_ajax_save_email', 'save_email');
+
+function save_email() {
+    $email = sanitize_email($_POST['email']);
+    $name  = sanitize_text_field($_POST['user_name']);
+    $file  = esc_url_raw($_POST['file']);
+
+    if (!is_email($email)) {
+        wp_send_json_error('Invalid email');
+    }
+
+
+    // Email notification to you
+    $to      = 'kpneal@icloud.com'; // <-- change this
+    $subject = 'New resource download';
+    $message = "A new file was downloaded:\n\nName: $name\nEmail: $email\nFile: $file\nDate: " . date('Y-m-d H:i:s');
+    $headers = ['Content-Type: text/plain; charset=UTF-8'];
+    wp_mail($to, $subject, $message, $headers);
+
+    wp_send_json_success('emailed');
+}

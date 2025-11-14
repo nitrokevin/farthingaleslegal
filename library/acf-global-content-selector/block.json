@@ -1,0 +1,23 @@
+{
+  "name": "acf/global-content-selector",
+  "title": "Global Content Selector",
+  "description": "Display content from an options page",
+  "style": ["file:./dist/assets/css/editor.css"],
+  "category": "avidd-blocks",
+  "icon": "networking",
+  "keywords": ["content"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "template-parts/blocks/global-content-selector.php"
+  },
+  "align": ["none","wide", "full"],
+  "supports": {
+    "color": {
+      "text": true,
+      "background": true,
+      "gradients": true
+     
+    },
+     "anchor": true
+  }
+}

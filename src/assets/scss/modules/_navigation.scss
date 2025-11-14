@@ -58,10 +58,11 @@
     .top-bar-right {
       flex: 2;
       img{
-        max-width: 14rem;
-      padding: $global-padding}
+        max-width: 12rem;
+      padding: $global-padding 0}
     }
      .top-bar-left{
+      display: flex;
       margin-left: 0.9375rem;
      }
 
@@ -75,19 +76,23 @@
       text-align: right;
     }
   }
+  .top-bar-item{
+    padding: .7rem 0.5rem;
+    line-height: 1;
+
+    &.social-links{
+margin-top: -2px;
+    }
+  }
+
     .social-inline {
       font-size: rem-calc(18);
         color: $theme-color-1;
       @include menu-align(left);
-
-     
-        padding: 0.7rem 1rem 0.7rem 0;
      
       
 
       @include breakpoint(medium) {
-      
-          padding: 0.7rem 1rem 0.7rem 0.2rem;
         
 
         justify-content: flex-start;
@@ -119,4 +124,95 @@
   backface-visibility: hidden;
   will-change: transform;
   transform: translate3d(0, 0, 0);
+}
+.off-canvas-position {
+  @include breakpoint(small) {
+    @include off-canvas-position(top);
+
+  }
+
+  @include breakpoint(medium) {
+    @include off-canvas-position(right);
+  }
+}
+
+.off-canvas {
+  @include xy-grid;
+
+  @include breakpoint(small) {
+    @include flex-align($y:top);
+  }
+
+  @include breakpoint(medium) {
+    @include flex-align($y:middle);
+  }
+
+  >ul.menu {
+    @include xy-cell(12, $gutters:0);
+
+    padding: 0 2rem 1rem 2rem;
+    margin: 6rem 0 0 0;
+
+
+    a {
+
+      color: $black;
+      font-weight: 300;
+
+      @include breakpoint(small) {
+        font-size: rem-calc(24);
+        padding: 0.2rem 0.6rem 0.2rem 0;
+      }
+
+      @include breakpoint(medium) {
+        font-size: rem-calc(40);
+        padding: 0.2rem 0.6rem 0.2rem 0;
+      }
+
+    }
+
+
+
+    .close-button {
+      right: 0rem;
+    }
+  }
+
+
+  .menu .is-active>a {
+    color: $primary-color;
+    background-color: transparent;
+  }
+
+  .menu-item {
+
+    @include flex-align($x:left, $y:middle);
+
+  }
+
+
+}
+
+@for $i from 1 through 9 {
+  .is-open {
+    li:nth-of-type(#{$i}) {
+      opacity: 0;
+      animation: slidein ease-in-out;
+      animation-duration: 600ms;
+      animation-delay:calc(#{$i}*150ms);
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@keyframes slidein {
+  0% {
+    transform: translateX(-14rem);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

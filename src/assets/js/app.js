@@ -8,5 +8,10 @@ window.$ = $;
 // the line below
 import './lib/foundation-explicit-pieces';
 import './lib/swiper';
+import './lib/download';
 
-$(document).foundation();
+$(document).ready(function () {
+  console.log('Initializing Foundation...');
+  $(document).foundation();
+  console.log('Foundation initialized.');
+});

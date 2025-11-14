@@ -83,29 +83,29 @@ background-image: radial-gradient(ellipse 70% 40% at 65% 60%,
   @include breakpoint(large) {
     background-size: cover;
     background-position: center;
-    min-height: rem-calc(500);
+    min-height: rem-calc(400);
     margin: 0;
   }
 
   .tagline {
     @include breakpoint(small) {
       @include xy-cell(9);
-      padding-top: 7rem;
+      padding-top: 6rem;
     }
 
     @include breakpoint(medium) {
       @include xy-cell(6);
-      padding-top: 8rem;
+      padding-top: 6rem;
     }
 
     @include breakpoint(large) {
-      @include xy-cell(6);
-      padding-top: 10rem;
+      @include xy-cell(7);
+      padding-top: 8rem;
     }
 
     @include breakpoint(xlarge) {
-      @include xy-cell(6);
-      padding-top: 12rem;
+      @include xy-cell(7);
+      padding-top: 10rem;
     }
   }
 
@@ -122,12 +122,12 @@ background-image: radial-gradient(ellipse 70% 40% at 65% 60%,
     }
 
     @include breakpoint(large) {
-      @include xy-cell(6);
+      @include xy-cell(5);
       padding-top: 8rem;
     }
 
     @include breakpoint(xlarge) {
-      @include xy-cell(6);
+      @include xy-cell(5);
       padding-top: 10rem;
     }
 img{width:100%;}
@@ -138,10 +138,15 @@ img{width:100%;}
     color: $theme-color-1;
   }
 
-  $hero-header: (h1: (small: 35,
+  $hero-header: (
+    h1: (small: 35,
       medium: 42,
       large: 55,
       xlarge: 63),
+     h2: (small: 28,
+       medium: 30,
+       large: 40,
+       xlarge: 50),
     p:(small: 18,
       medium: 19,
       large: 20,
@@ -170,7 +175,11 @@ img{width:100%;}
   h1 {
     @include responsive-font(h1);
   }
-
+ &.post {
+   h1 {
+     @include responsive-font(h2);
+   }
+ }
   p {
     @include responsive-font(p);
   }
@@ -202,4 +211,5 @@ img{width:100%;}
       }
     }
   }
+ 
 }

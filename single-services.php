@@ -12,6 +12,7 @@ get_header(); ?>
     <div class="marketing">
         <div class="tagline">
             <h1 class="entry-title"><?php the_title(); ?></h1>
+    
         </div>
 
         <?php if ( has_post_thumbnail() ) : 
@@ -27,7 +28,7 @@ get_header(); ?>
                         [
                             'class' => '',
                             'alt'   => $alt_text ?: get_the_title(),
-                           'sizes' => '(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 500px'
+                            'sizes' => '(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 500px'
                         ] 
                     ); 
                 ?>
@@ -38,18 +39,11 @@ get_header(); ?>
 
 <div class="main-container">
 	<div class="main-grid">
-		<main class="main-content post">
+		<main class="main-content full-width">
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php get_template_part( 'template-parts/content', '' ); ?>
-				
 			<?php endwhile; ?>
 		</main>
-        <?php if ( in_category('case-studies') ) {
-     get_sidebar('casestudies');
-         } else {
-    get_sidebar();
-} ?>
-	
 	</div>
 </div>
 <?php get_footer();

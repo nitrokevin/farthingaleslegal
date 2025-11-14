@@ -13,6 +13,7 @@
 	}
 	.block-accordion-container {
 		@include xy-grid-container;
+		padding-bottom:2rem;
 		.block-accordion-content{
 			@include xy-cell(12);
 		
@@ -37,12 +38,12 @@
 			}
 			}
 		.accordion-title{
-			font-size: rem-calc(16);
+			font-size: rem-calc(22);
 
 		}
 	
 		.accordion-title::before{
-			font-size: rem-calc(26);
+			font-size: rem-calc(36);
 			margin:0;
 			transform:translateY(-50%);
 		}

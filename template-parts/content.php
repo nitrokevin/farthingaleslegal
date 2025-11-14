@@ -21,12 +21,12 @@
 	<header>
 	<?php
 		if ( is_single() ) {
-			echo '<h1 class="entry-title">' . esc_html( get_the_title() ) . '</h1>';
+			// echo '<h1 class="entry-title">' . esc_html( get_the_title() ) . '</h1>';
 		} else {
 			echo '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . esc_html( get_the_title() ) . '</a></h2>';
 		}
 	?>
-		<?php foundationpress_entry_meta(); ?>
+		
 	</header>
 	<div class="entry-content">
 		<?php if ( is_single() ) { 

@@ -49,6 +49,10 @@ $carousel_intro = get_field('carousel_intro');
 			
 			get_template_part('template-parts/content', 'gallery-carousel'); 
 
+		} if($carousel_type == 'resourcescarousel'){ 
+			
+			get_template_part('template-parts/content', 'resourcescarousel'); 
+
 		} ?>
 			</div>
 	</div>
