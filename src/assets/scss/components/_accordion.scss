@@ -23,6 +23,12 @@
 
 }
 .accordion{
+		@each $color,
+		$code in $foundation-palette {
+		  &.#{$color} {
+		      background-color: $code;
+		  }
+		}
 	.accordion-item{
 		@each $color, $code in $foundation-palette {
 			&.#{$color} {

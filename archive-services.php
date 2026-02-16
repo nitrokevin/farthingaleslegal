@@ -21,7 +21,7 @@ $intro_text = get_field('intro_text');
 <header class="page-hero">
     <div class="marketing">
         <div class="tagline">
-            <h1 class="entry-title"><?php echo post_type_archive_title(); ?></h1>
+            <h1 class="entry-title">What we do</h1>
             <p><?php echo esc_html( $intro_text ); ?></p>
 
             <?php 
@@ -40,7 +40,7 @@ $intro_text = get_field('intro_text');
 </header>
 <div class="main-container">
 	<div class="main-grid">
-		<main class="main-content-full-width services-archive">
+		<main class="main-content-full-width services-archive cards-container">
 		<?php if ( have_posts() ) : ?>
 
 			<?php /* Start the Loop */ ?>

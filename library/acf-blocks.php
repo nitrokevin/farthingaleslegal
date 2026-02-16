@@ -525,6 +525,23 @@ acf_add_local_field_group(array(
             'other_choice' => 0,
             'save_other_choice' => 0,
         ),
+          array(
+            'key' => 'field_accordion_background_image',
+            'label' => 'Accordion background image',
+            'name' => 'accordion_background_image',
+             'type' => 'image',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '100',
+                'class' => '',
+                'id' => '',
+            ),
+            'return_format' => 'array',
+            'preview_size' => 'thumbnail',
+            'library' => 'all',
+        ),
        
         array(
             'key' => 'field_626db2f7738c7',
@@ -842,6 +859,23 @@ acf_add_local_field_group(array(
     'other_choice' => 0,
     'save_other_choice' => 0,
     ),
+          array(
+            'key' => 'field_carousel_background_image',
+            'label' => 'Section background image',
+            'name' => 'carousel_background_image',
+            'type' => 'image',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '100',
+                'class' => '',
+                'id' => '',
+            ),
+            'return_format' => 'array',
+            'preview_size' => 'thumbnail',
+            'library' => 'all',
+        ),
 
      array(
             'key' => 'field_carousel_subheader',

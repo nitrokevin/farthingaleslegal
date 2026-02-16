@@ -29,8 +29,17 @@ $carousel_header = get_field('carousel_header');
 $carousel_subheader = get_field('carousel_subheader');
 $carousel_intro = get_field('carousel_intro');
 
+  // Prepare image sizes if needed
+   $image = get_field('carousel_background_image');
+                if ($image) {
+                    $small = $image['sizes']['featured-small'];
+                    $medium = $image['sizes']['featured-medium'];
+                    $large = $image['sizes']['featured-large']; 
+                    $xlarge = $image['sizes']['featured-xlarge'];
+                }
+
 ?>
-<section id="<?php echo esc_attr($id); ?>" class=" <?php echo esc_attr($className); ?>  <?php echo $carousel_type; ?>   <?php echo $section_background; ?> " >
+<section id="<?php echo esc_attr($id); ?>" class=" <?php echo esc_attr($className); ?>  <?php echo $carousel_type; ?>   <?php echo $section_background; ?> "  data-interchange="[<?php echo esc_url($small); ?>, small], [<?php echo esc_url($medium); ?>, medium], [<?php echo esc_url($large); ?>, large], [<?php echo esc_url($xlarge); ?>, xlarge]" data-type="background">
     <div class="block-carousel-container "> 
 		<div class="block-carousel-grid" >
 			<div class="block-carousel-header">

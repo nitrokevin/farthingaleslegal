@@ -30,6 +30,7 @@
 	</header>
 	<div class="entry-content">
 		<?php if ( is_single() ) { 
+			foundationpress_entry_meta();
 			the_content();
 		} else { 
 			the_excerpt(); ?>

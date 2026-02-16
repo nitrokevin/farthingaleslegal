@@ -41,6 +41,12 @@
     }
     &.post{
        margin-top: 3rem;
+       article.post{
+        p{margin-bottom: 1.5rem;}
+        @include breakpoint(large) {
+        padding-right:4rem;
+        }
+       }
     }
   }
 
@@ -66,47 +72,55 @@
 .subheader{
   text-transform: uppercase;
 }
+.services-archive{
+  margin-top:3rem !important;
+}
 
 .services{
   @include xy-grid();
- 
+ align-items: stretch;
   padding:$global-padding*3 0;
   position: relative;
-&:nth-of-type(even) {
-  background-color: $theme-color-1;
-   &:before {
-     background-color: inherit;
-     content: "";
-     position: absolute;
-     top: 0;
-     left: 50%;
-     transform: translateX(-50%);
-     width: 100vw;
-     height: 100%;
-     z-index: -1;
-   }
-}
 
-  header{
-     @include xy-cell(12);
-@include breakpoint(medium) {
-    @include xy-cell(5);
-}
-     @include xy-grid();
-     @include flex-align($x:left, $y:stretch);
 
-    .post-thumbnail,
-    .entry-title {
-      width:100%;
+header {
+  @include xy-cell(12);
+   height: auto;
+
+  @include breakpoint(medium) {
+    @include xy-cell(6);
+     height: 100%; // ensures top and bottom can separate
+  }
+    @include breakpoint(large) {
+      @include xy-cell(5);
+      height: 100%; // ensures top and bottom can separate
     }
 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; // key
+ 
+
+  .entry-title,
+  .post-thumbnail {
+    width: 100%;
+    margin-bottom:0.5rem;
   }
+  .post-thumbnail{
+    max-width: 4rem;
+  }
+}
   .entry-content{
      @include xy-cell(12);
 
      @include breakpoint(medium) {
-     @include xy-cell(7);
+     @include xy-cell(6);
+     
      }
+        @include breakpoint(large) {
+          @include xy-cell(6);
+          @include xy-cell-offset(1);
+        }
   }
 }
 .wp-block-post-template{

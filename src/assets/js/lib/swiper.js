@@ -59,37 +59,45 @@ window.addEventListener('load', () => {
    
   });
 
-  const resourcesContainers = document.querySelectorAll('.swiper.resourcescarousel');
+ const resourcesContainers = document.querySelectorAll('.swiper.resourcescarousel');
 
-  resourcesContainers.forEach(container => {
-    const swiper = new Swiper(container, {
-      direction: 'horizontal',
-      loop: true,
-      slidesPerView: 5,
-      spaceBetween: 20,
-      observer: true,
-      observeParents: true,
-      navigation: {
-        nextEl: container.querySelector('.swiper-button-next'),
-        prevEl: container.querySelector('.swiper-button-prev'),
-      },
-      autoplay: {
-        delay: 6400,
-        disableOnInteraction: false,
-      },
-      speed: 1600,
-      breakpoints: {
-        0: { // from 0px width
-          slidesPerView: 3,
-          spaceBetween: 10,
-        },
-        640: { // from 640px width
-          slidesPerView: 5,
-          spaceBetween: 20,
-        }
-      },
-    });
+ resourcesContainers.forEach(container => {
+   // 1. Count the actual slides inside this specific container
+   const slideCount = container.querySelectorAll('.swiper-slide').length;
 
-    swiper.update();
-  });
-});;
+   // 2. Define your threshold (e.g., loop only if slides > 5)
+   const shouldLoop = slideCount > 5;
+
+   const swiper = new Swiper(container, {
+     direction: 'horizontal',
+     // 3. Apply the dynamic boolean
+     loop: shouldLoop,
+     slidesPerView: 5,
+     spaceBetween: 30,
+     observer: true,
+     observeParents: true,
+     navigation: {
+       nextEl: container.querySelector('.swiper-button-next'),
+       prevEl: container.querySelector('.swiper-button-prev'),
+     },
+     autoplay: {
+       delay: 6400,
+       disableOnInteraction: false,
+     },
+     speed: 1600,
+     breakpoints: {
+       0: {
+         slidesPerView: 3,
+         spaceBetween: 10,
+         // Optional: Update loop per breakpoint if needed
+       },
+       640: {
+         slidesPerView: 4,
+         spaceBetween: 30,
+       }
+     },
+   });
+
+   swiper.update();
+ });
+});

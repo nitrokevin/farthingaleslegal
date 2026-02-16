@@ -33,6 +33,10 @@ if ( ! function_exists( 'foundationpress_theme_support' ) ) :
 
 		//Remove patterns
 		remove_theme_support( 'core-block-patterns' );
+
+		    add_theme_support('editor-styles');
+    add_theme_support('experimental-link-color');
+    add_theme_support('custom-units');
 		
 
 		// RSS thingy

@@ -37,7 +37,7 @@
 			 <?php if ( get_sub_field('carousel_button_url') && get_sub_field('carousel_button_text') ) : ?>
                 <div class="carousel-button">
                     <a href="<?php the_sub_field('carousel_button_url'); ?>" class="primary">
-                        <?php the_sub_field('carousel_button_text'); ?>
+                        <?php the_sub_field('carousel_button_text'); ?><i class="fa-light fa-arrow-right-long"></i>
                     </a>
                 </div>
             <?php endif; ?>
@@ -78,7 +78,7 @@
 			  <?php if ( get_sub_field('carousel_button_url') && get_sub_field('carousel_button_text') ) : ?>
                 <div class="carousel-button">
                     <a href="<?php the_sub_field('carousel_button_url'); ?>" class="button theme-color-2">
-                        <?php the_sub_field('carousel_button_text'); ?>
+                        <?php the_sub_field('carousel_button_text'); ?> <i class="fa-light fa-arrow-right-long"></i>
                     </a>
                 </div>
             <?php endif; ?>

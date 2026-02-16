@@ -47,6 +47,7 @@
 }
 // Top Bar
 .top-bar {
+  
   .top-bar-inner-container {
     @include xy-cell(12);
     @include xy-grid;
@@ -57,8 +58,21 @@
     .top-bar-center,
     .top-bar-right {
       flex: 2;
+      @include breakpoint(large){
+        font-size: rem-calc(15);
+      }
+       @include breakpoint(xlarge) {
+         font-size: rem-calc(16);
+       }
       img{
-        max-width: 12rem;
+         @include breakpoint(large) {
+            max-width: 10rem;
+         }
+
+         @include breakpoint(xlarge) {
+           max-width: 11rem;
+         }
+       
       padding: $global-padding 0}
     }
      .top-bar-left{

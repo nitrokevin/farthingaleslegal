@@ -1,17 +1,29 @@
 .cards-container {
 	@include xy-grid;
+	margin-top:$global-margin;
 
 	.card {
 		@include breakpoint(small) {
 			@include xy-cell(12);
+			border-bottom: 1rem solid $theme-color-2;
 
 			.card-content {
 				padding: 1rem;
 			}
 		}
-
-		@include breakpoint(medium) {
-			@include xy-cell(1 of 3, $gutters: 0.7rem);
-		}
 	}
+	.wp-block-group.card{
+		padding: 2rem;
+		margin-bottom:2rem;
+	}
+
+		.card.full-width {
+		  @include breakpoint(small) {
+		    @include xy-cell(12);
+
+		    .card-content {
+		      padding: 1rem;
+		    }
+		  }
+		}
 }

@@ -105,7 +105,7 @@ $gradient in $foundation-gradients {
 }
 
 /** === Group === */
-.wp-block-group{
+.entry-content > .wp-block-group {
   padding:$global-padding*2 0;
 }
 .wp-block-group.alignfull {
@@ -173,5 +173,26 @@ $gradient in $foundation-gradients {
 
 
 .wp-block-media-text>.wp-block-media-text__content{
-  padding: 0 8% 0 0;
+  @include breakpoint(large) {
+  padding:1rem 4% 1rem 0rem;
+  }
+  @include breakpoint(large) {
+    padding: 1rem 8% 1rem 0.3rem;
+  }
+  
+  
+}
+
+.wp-block-media-text__content{
+
+.wp-block-group{
+  padding: 0 !important;
+}
+.wp-block-group.alignfull .wp-block-group__inner-container {
+  padding: 0;
+}
+}
+
+.wp-block-post-featured-image{
+  margin-bottom:$global-margin;
 }

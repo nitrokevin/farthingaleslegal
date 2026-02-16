@@ -126,8 +126,8 @@ $global-padding: 1rem;
 $global-position: 1rem;
 $global-weight-normal: normal;
 $global-weight-bold: bold;
-$global-radius: 0.5rem;
-$global-menu-padding: 0.7rem 1rem;
+$global-radius: 1rem;
+$global-menu-padding: 0.7rem 0.8rem;
 $global-menu-nested-margin: 1rem;
 $global-text-direction: ltr;
 $global-flexbox: true;
@@ -181,11 +181,11 @@ $header-font-weight: $global-weight-bold;
 $header-font-style: normal;
 $font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
 $header-color: inherit;
-$header-lineheight: 1;
+$header-lineheight: 1.1;
 $header-margin-bottom: 1rem;
 $header-styles: (
   small: (
-    'p' : ('font-size': 16),
+  
     'h1': ('font-size': 32),
     'h2': ('font-size': 30),
     'h3': ('font-size': 28),
@@ -194,7 +194,7 @@ $header-styles: (
     'h6': ('font-size': 16),
   ),
   medium: (
-    'p' : ('font-size': 16),
+   
     'h1': ('font-size': 40),
     'h2': ('font-size': 36),
     'h3': ('font-size': 31),
@@ -203,7 +203,7 @@ $header-styles: (
     'h6': ('font-size': 16),
   ),
   large: (
-    'p' : ('font-size': 16),
+   
     'h1': ('font-size': 38),
     'h2': ('font-size': 34),
     'h3': ('font-size': 31),
@@ -212,7 +212,7 @@ $header-styles: (
     'h6': ('font-size': 16),
   ),
   xlarge: (
-    'p' : ('font-size': 16),
+   
     'h1': ('font-size': 42),
     'h2': ('font-size': 38),
     'h3': ('font-size': 31),
@@ -224,7 +224,7 @@ $header-styles: (
 $header-text-rendering: optimizeLegibility;
 $small-font-size: 80%;
 $header-small-font-color: $medium-gray;
-$paragraph-lineheight: 1.6;
+$paragraph-lineheight: 1.5;
 $paragraph-margin-bottom: 1rem;
 $paragraph-text-rendering: optimizeLegibility;
 $enable-code-inline: true;
@@ -292,7 +292,7 @@ $input-error-font-weight: $global-weight-bold;
 // 7. Accordion
 // ------------
 
-$accordion-background: $white;
+$accordion-background: transparent;
 $accordion-plusminus: true;
 $accordion-plus-content: '\002B';
 $accordion-minus-content: '\2013';
@@ -352,7 +352,7 @@ $breadcrumbs-item-separator-color: $medium-gray;
 
 $button-font-family: inherit;
 $button-font-weight: $global-weight-bold;
-$button-padding: 0.6em 1em;
+$button-padding: 0.9em 0.9em;
 $button-margin: 0 0 $global-margin 0;
 $button-fill: solid;
 $button-background: $primary-color;
@@ -404,14 +404,18 @@ $callout-link-tint: 30%;
 // 14. Card
 // --------
 
-$card-background: $white;
-$card-font-color: $body-font-color;
-$card-divider-background: $light-gray;
-$card-border: 1px solid $light-gray;
-$card-shadow: none;
+$card-background: $secondary-color;
+$card-font-color: $white;
+$card-divider-background: $theme-color-2;
+$card-border: 0px solid $light-gray;
+$card-shadow: 0 1px 1px rgba(3, 7, 18, .02),
+0 2px 2px rgba(3, 7, 18, .04),
+0 4px 8px rgba(3, 7, 18, .06),
+0 8px 10px rgba(3, 7, 18, .08),
+0 16px 30px rgba(3, 7, 18, .3);
 $card-border-radius: $global-radius;
-$card-padding: $global-padding;
-$card-margin-bottom: $global-margin;
+$card-padding: $global-padding*2;
+$card-margin-bottom: $global-margin*2;
 
 // 15. Close Button
 // ----------------
@@ -467,10 +471,10 @@ $dropdown-sizes: (
 // -----------------
 
 $dropdownmenu-arrows: true;
-$dropdownmenu-arrow-color: $anchor-color;
+$dropdownmenu-arrow-color: $white;
 $dropdownmenu-arrow-size: 6px;
 $dropdownmenu-arrow-padding: 1.5rem;
-$dropdownmenu-min-width: 200px;
+$dropdownmenu-min-width: 260px;
 $dropdownmenu-background: null;
 $dropdownmenu-submenu-background: $white;
 $dropdownmenu-padding: $global-menu-padding;

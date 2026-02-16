@@ -24,8 +24,18 @@ if( !empty($block['align']) ) {
     $className .= ' align' . $block['align'];
 }
 
+  // Prepare image sizes if needed
+   $image = get_sub_field('accordion_background_image');
+                if ($image) {
+                    $small = $image['sizes']['featured-small'];
+                    $medium = $image['sizes']['featured-medium'];
+                    $large = $image['sizes']['featured-large']; 
+                    $xlarge = $image['sizes']['featured-xlarge'];
+                }
+
+
 ?>
-<section id="<?php echo esc_attr($id); ?>" class="wp-block <?php echo esc_attr($className); ?>  <?php echo $section_background_color; ?> " >
+<section id="<?php echo esc_attr($id); ?>" class="wp-block <?php echo esc_attr($className); ?>  <?php echo $section_background_color; ?> "  data-interchange="[<?php echo esc_url($small); ?>, small], [<?php echo esc_url($medium); ?>, medium], [<?php echo esc_url($large); ?>, large], [<?php echo esc_url($xlarge); ?>, xlarge]" data-type="background">
     <div class="block-accordion-container "> 
 		<div class="block-accordion-grid" >
 		<div class="block-accordion-content " >

@@ -76,16 +76,22 @@ background-image: radial-gradient(ellipse 70% 40% at 65% 60%,
   @include breakpoint(medium) {
     background-size: cover;
     background-position: center;
-    min-height: rem-calc(400);
+    min-height: rem-calc(300);
     margin: 0;
   }
 
   @include breakpoint(large) {
     background-size: cover;
     background-position: center;
-    min-height: rem-calc(400);
+    min-height: rem-calc(360);
     margin: 0;
   }
+   @include breakpoint(xlarge) {
+     background-size: cover;
+     background-position: center;
+     min-height: rem-calc(380);
+     margin: 0;
+   }
 
   .tagline {
     @include breakpoint(small) {

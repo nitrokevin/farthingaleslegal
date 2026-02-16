@@ -64,6 +64,51 @@ acf_add_local_field_group(array(
 ));
 
 
+//service
+
+acf_add_local_field_group(array(
+	'key' => 'group_5c75uguf6aae1dhweh',
+	'title' => 'Service Features',
+	'fields' => array(
+			array(
+				'key' => 'field_service_features',
+				'label' => 'Service features',
+				'name' => 'service_features',
+				'type' => 'wysiwyg',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+			
+				
+			),
+		
+	),
+	'location' => array(	
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'services',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => false,
+));
+
+
 
 //FAQ OPTIONS PAGE
 acf_add_local_field_group(array(

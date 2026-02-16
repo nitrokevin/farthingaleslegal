@@ -67,7 +67,7 @@ $social_icons = [
 
             </section>
             <section>
-                <p class="subheader">Find us</p>
+                <p class="subheader">Correspondence Address</p>
                   <ul class="footer-contact menu  footer-menu">
                     <li><?php echo esc_html($contact_address_1); ?></li>
                     <li><?php echo esc_html($contact_address_2); ?></li>

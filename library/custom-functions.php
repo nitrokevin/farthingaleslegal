@@ -245,9 +245,9 @@ function opening_times_shortcode($atts) {
         // echo esc_html($atts['title']); 
         // echo '</div>';
         // Output the opening times list
-         echo '<p>';
+         echo '<p class="opening-times-header">';
           echo '<strong>Office Hours</strong>';
-         echo '</p">';
+            echo '</p">';
         echo '<ul class="opening-times">';
         foreach ( $opening_times as $time ) {
             $day = isset( $time['day'] ) ? esc_html( $time['day'] ) : '';
@@ -260,6 +260,7 @@ function opening_times_shortcode($atts) {
             <?php
         }
         echo '</ul>';
+       
         echo '<small>';
         echo '';
         echo '</small>';
@@ -295,4 +296,34 @@ function save_email() {
     wp_mail($to, $subject, $message, $headers);
 
     wp_send_json_success('emailed');
+}
+
+
+function get_latest_tagged_post( string $tag_slug, array $args = [] ) {
+
+    $defaults = [
+        'post_type'      => 'post',
+        'posts_per_page' => 1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'tag'            => $tag_slug,
+    ];
+
+    $query = new WP_Query( array_merge( $defaults, $args ) );
+
+    if ( ! $query->have_posts() ) {
+        return false;
+    }
+
+    $query->the_post();
+
+    $data = [
+        'title' => get_the_title(),
+        'link'  => get_permalink(),
+        'id'    => get_the_ID(),
+    ];
+
+    wp_reset_postdata();
+
+    return $data;
 }

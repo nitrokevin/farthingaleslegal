@@ -1,4 +1,12 @@
-<div class="swiper resourcescarousel">
+<?php
+$term_id = get_field('resource_type_taxonomy');
+$term    = get_term($term_id, 'resource_categories');
+
+if ($term && !is_wp_error($term)) {
+    $swiper_id = 'resources-' . esc_attr($term->slug);
+}
+?>
+<div id="<?php echo $swiper_id; ?>" class="swiper resourcescarousel">
     <div class="swiper-button-prev" aria-label="Go to previous slide"></div>
     <div class="swiper-button-next" aria-label="Next slide"></div>
 	  <!-- If we need pagination -->
