@@ -83,41 +83,73 @@ add_filter('acf/pre_save_block', 'set_unique_acf_block_anchor');
 // TINYMCE CUSTOMISATIONS
 // ------------------------------------------------------------
 
+
 add_filter('tiny_mce_before_init', 'customise_tinymce');
 
 function customise_tinymce($init) {
     // Always paste as plain text
     $init['paste_as_text'] = true;
 
-    // Load custom colour palette
-    $colors = [];
-    if (file_exists(get_template_directory() . '/colors.php')) {
-        include get_template_directory() . '/colors.php';
-        if (!is_array($colors)) {
-            $colors = [];
+    // Load custom colour palette via helper (returns ['#hex' => 'Name', ...])
+    $default_colours = [];
+
+    if ( function_exists( 'get_theme_design_choices' ) ) {
+        $choices = get_theme_design_choices([
+            'include_colors'    => true,
+            'include_gradients' => false,
+            'key'               => 'color', // we want HEX keys for the editor
+            'for_acf'           => false,   // not needed here
+        ]);
+
+        if (is_array($choices) && count($choices)) {
+            foreach ($choices as $key => $label) {
+                // $key should be a HEX like '#ffffff'
+                if (!is_string($key)) {
+                    continue;
+                }
+                $hex = trim($key);
+                if (strtolower($hex) === 'transparent') {
+                    continue;
+                }
+                // guard: only include hex values that start with #
+                if (strpos($hex, '#') !== 0) {
+                    continue;
+                }
+                $default_colours[] = '"' . ltrim($hex, '#') . '"';
+                $default_colours[] = '"' . esc_js($label) . '"';
+            }
         }
     }
 
-    $default_colours = [];
-    foreach ($colors as $name => $hex) {
-        if (strtolower($hex) === 'transparent') continue;
-        $label = ucwords(str_replace(['-', '_'], ' ', $name));
-        $default_colours[] = '"' . ltrim($hex, '#') . '"';
-        $default_colours[] = '"' . $label . '"';
+    // fallback: if no colours found, use a single neutral so editor won't fall back to core defaults
+    if (empty($default_colours)) {
+        $default_colours[] = '"000000"';
+        $default_colours[] = '"Black"';
     }
+
     $init['textcolor_map'] = '[' . implode(', ', $default_colours) . ']';
 
     // Add custom style formats
     $init['style_formats'] = json_encode([
         [
-            'title' => 'Standard Button main colour',
+            'title' => 'Primary Button',
             'selector' => 'a',
-            'classes' => 'button hollow',
+            'classes' => 'button',
+        ],
+          [
+            'title' => 'Secondary button',
+            'selector' => 'a',
+            'classes' => 'button secondary',
         ],
         [
-            'title' => 'Standard Button secondary colour',
+            'title' => 'Theme color 1 button',
             'selector' => 'a',
-            'classes' => 'button hollow secondary',
+            'classes' => 'button theme-color-1',
+        ],
+        [
+            'title' => 'Theme color 2 button',
+            'selector' => 'a',
+            'classes' => 'button theme-color-2',
         ],
     ]);
 
@@ -132,6 +164,9 @@ function my_mce_buttons_2($buttons) {
     return $buttons;
 }
 add_filter('mce_buttons_2', 'my_mce_buttons_2');
+
+
+
 
 // ------------------------------------------------------------
 // EMBED AND VIDEO RESPONSIVENESS
@@ -228,7 +263,6 @@ function avidd_social_links_inline_shortcode($atts) {
 }
 add_shortcode('social_links', 'avidd_social_links_inline_shortcode');
 
-
 // Register the shortcode for opening times
 function opening_times_shortcode($atts) {
     $atts = shortcode_atts(
@@ -238,20 +272,38 @@ function opening_times_shortcode($atts) {
         $atts,
         'opening_times'
     );
-    $opening_times = get_theme_mod('opening_times');
+    
+    // Use the helper function
+    $opening_times = avidd_get_repeater_data('opening_times');
+    
     if ( ! empty( $opening_times ) ) {
         ob_start(); // Start output buffering
-        // echo '<div class="opening-hours-title heading">';
-        // echo esc_html($atts['title']); 
-        // echo '</div>';
+        
         // Output the opening times list
-         echo '<p class="opening-times-header">';
-          echo '<strong>Office Hours</strong>';
-            echo '</p">';
+        echo '<p class="opening-times-header">';
+        echo '<strong>Office Hours</strong>';
+        echo '</p>';
         echo '<ul class="opening-times">';
+        
         foreach ( $opening_times as $time ) {
             $day = isset( $time['day'] ) ? esc_html( $time['day'] ) : '';
-            $hours = isset( $time['hours'] ) ? esc_html( $time['hours'] ) : '';
+            $opening_time = isset( $time['opening_time'] ) ? esc_html( $time['opening_time'] ) : '';
+            $closing_time = isset( $time['closing_time'] ) ? esc_html( $time['closing_time'] ) : '';
+            $note = isset( $time['note'] ) ? esc_html( $time['note'] ) : '';
+            
+            // Build hours string
+            $hours = '';
+            if ( $opening_time && $closing_time ) {
+                $hours = $opening_time . ' - ' . $closing_time;
+            } elseif ( $opening_time ) {
+                $hours = $opening_time;
+            } elseif ( $closing_time ) {
+                $hours = $closing_time;
+            }
+            
+            if ( $note ) {
+                $hours = $note; // Use note instead if provided
+            }
             ?>
             <li>
                 <?php echo $day; ?><br />
@@ -259,20 +311,98 @@ function opening_times_shortcode($atts) {
             </li>
             <?php
         }
+        
         echo '</ul>';
-       
-        echo '<small>';
-        echo '';
-        echo '</small>';
+        echo '<small></small>';
+        
         return ob_get_clean(); // Return the output buffer content
     }
+    
     return ''; // Return empty if no opening times are set
 }
 // Register the shortcode [opening_times]
 add_shortcode('opening_times', 'opening_times_shortcode');
 
-
-
+// Shortcode: [contact_details]
+function contact_details_shortcode( $atts ) {
+    $atts = shortcode_atts(
+        array(
+            'contact_title'        => esc_html__( 'Contact', 'avidd' ),
+            'address_title'        => esc_html__( 'Correspondence Address', 'avidd' ),
+            'wrapper_class'        => 'contact-details-block',
+            'show_email_as_link'   => '1',
+            'show_phone_as_link'   => '1',
+        ),
+        $atts,
+        'contact_details'
+    );
+    
+    $contact_phone = get_theme_mod( 'contact_phone_number' );
+    $contact_email = get_theme_mod( 'contact_email' );
+    $address_lines = array_filter(
+        array(
+            get_theme_mod( 'contact_address_1' ),
+            get_theme_mod( 'contact_address_2' ),
+            get_theme_mod( 'contact_address_3' ),
+            get_theme_mod( 'contact_address_4' ),
+            get_theme_mod( 'contact_address_5' ),
+            get_theme_mod( 'contact_address_6' ),
+        )
+    );
+    
+    // If absolutely nothing is set, return nothing.
+    if ( empty( $contact_phone ) && empty( $contact_email ) && empty( $address_lines ) ) {
+        return '';
+    }
+    
+    ob_start();
+    echo '<div class="' . esc_attr( $atts['wrapper_class'] ) . '">';
+    
+    // --- Contact section ---
+    if ( ! empty( $contact_phone ) || ! empty( $contact_email ) ) {
+        echo '<p class="contact-details-header"><strong>' . esc_html( $atts['contact_title'] ) . '</strong></p>';
+        echo '<ul class="contact-details">';
+        
+        if ( ! empty( $contact_phone ) ) {
+            echo '<li class="contact-details-phone">';
+            if ( $atts['show_phone_as_link'] === '1' ) {
+                $tel = preg_replace( '/[^0-9\+]/', '', $contact_phone );
+                echo '<a href="tel:' . esc_attr( $tel ) . '">' . esc_html( $contact_phone ) . '</a>';
+            } else {
+                echo esc_html( $contact_phone );
+            }
+            echo '</li>';
+        }
+        
+        if ( ! empty( $contact_email ) ) {
+            echo '<li class="contact-details-email">';
+            if ( $atts['show_email_as_link'] === '1' ) {
+                echo '<a href="mailto:' . antispambot( esc_attr( $contact_email ) ) . '">'
+                    . antispambot( esc_html( $contact_email ) )
+                    . '</a>';
+            } else {
+                echo antispambot( esc_html( $contact_email ) );
+            }
+            echo '</li>';
+        }
+        
+        echo '</ul>';
+    }
+    
+    // --- Address section ---
+    if ( ! empty( $address_lines ) ) {
+        echo '<p class="contact-details-header"><strong>' . esc_html( $atts['address_title'] ) . '</strong></p>';
+        echo '<div class="contact-details-address">';
+        echo nl2br( esc_html( implode( "\n", $address_lines ) ) );
+        echo '</div>';
+    }
+    
+    echo '</div>';
+    echo '<br />';
+    
+    return ob_get_clean();
+}
+add_shortcode( 'contact_details', 'contact_details_shortcode' );
 
 // --- Handle AJAX form submission ---
 add_action('wp_ajax_nopriv_save_email', 'save_email');
@@ -327,3 +457,93 @@ function get_latest_tagged_post( string $tag_slug, array $args = [] ) {
 
     return $data;
 }
+
+
+
+// ------------------------------------------------------------
+// Branded email notification
+// ------------------------------------------------------------
+// 1. Force CF7 emails to HTML
+add_filter('wp_mail_content_type', function($content_type) {
+    return 'text/html';
+});
+
+// 2. Add your HTML template wrapper
+add_filter('wpcf7_mail_components', function($components, $contact_form, $mail) {
+    // Get the logo URL
+$logo_id = get_theme_mod('email_logo');
+$logo_url = '';
+
+// Convert attachment ID to URL
+if ($logo_id) {
+    $logo_url = wp_get_attachment_image_url($logo_id, 'full');
+}
+
+// Fallback to site icon
+if (empty($logo_url)) {
+    $site_icon_id = get_option('site_icon');
+    if ($site_icon_id) {
+        $logo_url = wp_get_attachment_image_url($site_icon_id, 'full');
+    }
+}
+    $site_name = wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES);
+    $site_url = home_url('/');
+    
+    // Fallback to site icon
+    if (empty($logo_url)) {
+        $site_icon_id = get_option('site_icon');
+        if ($site_icon_id) {
+            $logo_url = wp_get_attachment_image_url($site_icon_id, 'full');
+        }
+    }
+    
+    // Get the message and convert to paragraphs
+    $message_html = wpautop($components['body']);
+    
+    $html = '
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"></head>
+    <body style="margin:0; padding:0; background:#f6f6f6;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6f6f6; padding:24px 12px;">
+            <tr><td align="center">
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background:#fff; border-radius:12px; overflow:hidden;">
+                    <tr>
+                        <td style="padding:22px 24px;">';
+    
+    if (!empty($logo_url)) {
+        $html .= '<a href="'.esc_url($site_url).'"><img src="'.esc_url($logo_url).'" alt="'.esc_attr($site_name).'" style="max-height:46px; height:auto; display:block;"></a>';
+    } else {
+        $html .= '<div style="font-weight:700; font-size:18px;">'.esc_html($site_name).'</div>';
+    }
+    
+    $html .= '
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:24px; font-family:Arial, sans-serif; font-size:15px; line-height:1.5; color:#222;">
+                            '.$message_html.'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:18px 24px; background:#fafafa; border-top:1px solid #eee; font-size:12px; color:#666; font-family:Arial, sans-serif;">
+                            <a href="'.esc_url($site_url).'" style="color:#666; text-decoration:none;">'.$site_name.'</a><br>
+                        </td>
+                    </tr>
+                </table>
+            </td></tr>
+        </table>
+    </body>
+    </html>';
+    
+    $components['body'] = $html;
+    
+    return $components;
+}, 10, 3);
+
+// 3. Reset content type after CF7 sends (important!)
+add_action('wpcf7_mail_sent', function() {
+    remove_filter('wp_mail_content_type', function($content_type) {
+        return 'text/html';
+    });
+});

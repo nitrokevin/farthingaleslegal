@@ -2,9 +2,15 @@
 $term_id = get_field('resource_type_taxonomy');
 $term    = get_term($term_id, 'resource_categories');
 
+$swiper_id = 'resources-' . wp_unique_id();
+
+$term_id = get_field('resource_type_taxonomy');
+$term    = $term_id ? get_term($term_id, 'resource_categories') : null;
+
 if ($term && !is_wp_error($term)) {
-    $swiper_id = 'resources-' . esc_attr($term->slug);
+    $swiper_id = 'resources-' . sanitize_title($term->slug);
 }
+
 ?>
 <div id="<?php echo $swiper_id; ?>" class="swiper resourcescarousel">
     <div class="swiper-button-prev" aria-label="Go to previous slide"></div>

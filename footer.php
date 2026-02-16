@@ -76,24 +76,31 @@ $social_icons = [
                     <li><?php echo esc_html($contact_address_5); ?></li>
                     <li><?php echo esc_html($contact_address_6); ?></li>
                 </ul>
+                
               
             </section>
             <section>
                 <p class="subheader">Legal</p>
                 <?php foundationpress_footer_nav_r(); ?>
-                <?php
-                $footer_links = get_theme_mod('footer_links');
-                if ($footer_links) { ?>
-                    <div class="footer-links">
-                        <?php
-                        foreach ($footer_links as $footer_link) : ?>
-                            <a href="<?php echo esc_url($footer_link['link_url']); ?>">
-                                <?php echo wp_get_attachment_image($footer_link['footer_image'], 'thumbnail', false, ["class" => "footer-icon"]); ?>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                <?php } ?>
-                 &copy; <?php echo esc_html($site_name) . ' ' . date('Y'); ?>
+                
+                 <?php
+                    $footer_links = avidd_get_repeater_data('footer_links');
+
+                    if (!empty($footer_links)) { ?>
+                        <div class="footer-links">
+                            <?php foreach ($footer_links as $footer_link) : ?>
+                                <?php if (!empty($footer_link['footer_image']) ) : ?>
+                                    <a href="<?php echo esc_url($footer_link['link_url']); ?>">
+                                        <?php echo wp_get_attachment_image($footer_link['footer_image'], 'thumbnail', false, ["class" => "footer-icon"]); ?>
+                                    </a>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php } ?>
+                    <ul>
+                     <li> Company number: <?php echo $footer_company_number ?></li>
+                 <li>&copy; <?php echo esc_html($site_name) . ' ' . date('Y'); ?></li>
+                    </ul>
             </section>
         </div>
     </div>

@@ -1,0 +1,25 @@
+{
+   "version": 3,
+   "settings": {
+     "layout": {
+  "contentSize": "1260px",
+  "wideSize": "1260px"
+},
+ "border": {
+   "radius": "0.5rem",
+   "customRadius": false,
+   "defaultRadius": "0.5rem"
+ },
+ "blocks": {
+    "core/media-text": {
+      "custom": {
+        "allowedWidths": {
+          "one-third": "33%",
+          "half": "50%",
+          "two-thirds": "66%"
+        }
+      }
+    }
+  }
+  }
+  }

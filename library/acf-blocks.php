@@ -1,9 +1,5 @@
 <?php
-include 'colors.php';
-$color_array = [];
-foreach ($colors as $name => $hex) {
-    $color_array[$hex] = $name;
-}
+
 if( function_exists('acf_register_block_type') ) {
 add_action('acf/init', 'my_acf_init_block_types');
 function my_acf_init_block_types() {
@@ -28,7 +24,7 @@ function checkCategoryOrder($categories)
     //return new categories
     return $newCategories;
 }
-add_filter( 'block_categories', 'checkCategoryOrder', 99, 1);
+add_filter( 'block_categories_all', 'checkCategoryOrder', 99, 1);
   
 add_action( 'init', 'register_acf_blocks' );
 function register_acf_blocks() {
@@ -60,7 +56,11 @@ acf_add_local_field_group(array(
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => $color_array,
+                                     'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
             'allow_null' => 1,
             'default_value' => array(
                 0 => '#fefefe',
@@ -109,7 +109,11 @@ acf_add_local_field_group(array(
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => $color_array,
+                                    'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
             'allow_null' => 1,
             'default_value' => '',
             'layout' => 'horizontal',
@@ -293,7 +297,11 @@ acf_add_local_field_group(array(
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => $color_array,
+                                   'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
             'allow_null' => 1,
             'default_value' => '',
             'layout' => 'horizontal',
@@ -517,7 +525,11 @@ acf_add_local_field_group(array(
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => $color_array,
+                                   'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
             'allow_null' => 1,
             'default_value' => '',
             'layout' => 'horizontal',
@@ -602,7 +614,11 @@ acf_add_local_field_group(array(
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => $color_array,
+                                          'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
                     'allow_null' => 1,
                     'default_value' => '',
                     'layout' => 'horizontal',
@@ -671,7 +687,11 @@ acf_add_local_field_group(array(
                     'class' => '',
                     'id' => '',
                 ),
-                'choices' => $color_array,
+                                         'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
                 'allow_null' => 1,
                 'default_value' => '',
                 'layout' => 'horizontal',
@@ -692,7 +712,11 @@ acf_add_local_field_group(array(
                     'class' => '',
                     'id' => '',
                 ),
-                'choices' => $color_array,
+                                   'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
                 'allow_null' => 1,
                 'default_value' => '',
                 'layout' => 'horizontal',
@@ -751,7 +775,11 @@ acf_add_local_field_group(array(
                             'class' => '',
                             'id' => '',
                         ),
-                        'choices' => $color_array,
+                                               'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
                         'allow_null' => 1,
                         'default_value' => '',
                         'layout' => 'horizontal',
@@ -849,7 +877,11 @@ acf_add_local_field_group(array(
         'class' => '',
         'id' => '',
     ),
-    'choices' => $color_array,
+                            'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
     'allow_null' => 1,
     'default_value' => array(
         0 => '#fefefe',
@@ -1097,7 +1129,11 @@ acf_add_local_field_group(array(
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => $color_array,
+                                   'choices' => get_theme_design_choices([
+    'include_colors'   => true,
+    'include_gradients' => false,
+    'key' => 'color', // return HEX as key for editor
+]),
             'allow_null' => 1,
             'default_value' => '',
             'layout' => 'horizontal',

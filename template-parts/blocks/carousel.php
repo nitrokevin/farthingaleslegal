@@ -39,7 +39,7 @@ $carousel_intro = get_field('carousel_intro');
                 }
 
 ?>
-<section id="<?php echo esc_attr($id); ?>" class=" <?php echo esc_attr($className); ?>  <?php echo $carousel_type; ?>   <?php echo $section_background; ?> "  data-interchange="[<?php echo esc_url($small); ?>, small], [<?php echo esc_url($medium); ?>, medium], [<?php echo esc_url($large); ?>, large], [<?php echo esc_url($xlarge); ?>, xlarge]" data-type="background">
+<section id="<?php echo esc_attr($id); ?>" class=" <?php echo esc_attr($className); ?>  <?php echo $carousel_type; ?>   <?php echo $section_background; ?> "  <?php  if ($image) { ?>data-interchange="[<?php echo esc_url($small); ?>, small], [<?php echo esc_url($medium); ?>, medium], [<?php echo esc_url($large); ?>, large], [<?php echo esc_url($xlarge); ?>, xlarge]" data-type="background" <?php } ?>>
     <div class="block-carousel-container "> 
 		<div class="block-carousel-grid" >
 			<div class="block-carousel-header">

@@ -14,6 +14,9 @@ import log from "fancy-log";
 import colors from "ansi-colors";
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
+import {
+  exec
+} from 'child_process';
 
 const sass = gulpSass(dartSass);
 // Load all Gulp plugins into one variable
@@ -101,30 +104,52 @@ function styles() {
 }
 exports.styles = styles;
 
-// Webpack configuration with SCSS and CSS loaders added
-const webpack = {
-  config: {
-    module: {
-      rules: [{
-          test: /\.js$/,
-          loader: "babel-loader",
-          exclude: /node_modules(?![\\\/]foundation-sites)/,
-        },
-        {
-          test: /\.scss$/,
-          use: ["style-loader", "css-loader", "sass-loader"], // SCSS loader
-        },
-        {
-          test: /\.css$/,
-          use: ["style-loader", "css-loader"], // CSS loader
-        },
-      ],
-    },
-    mode: PRODUCTION ? "production" : "development", // Dynamic mode based on PRODUCTION flag
-    externals: {
-      jquery: "jQuery",
-    },
+// New task to run update-theme-json.js script
+function updateThemeJson(done) {
+  exec('node build/update-theme-json.js', function (err, stdout, stderr) {
+    if (err) {
+      log.error('[updateThemeJson:error]', err);
+      done(err);
+      return;
+    }
+    if (stdout) {
+      log('[updateThemeJson]', stdout);
+    }
+    if (stderr) {
+      log('[updateThemeJson]', stderr);
+    }
+    done();
+  });
+}
+gulp.task('updateThemeJson', updateThemeJson);
+
+// Base webpack configuration
+const baseWebpackConfig = {
+  module: {
+    rules: [{
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules(?![\\\/]foundation-sites)/,
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"], // SCSS loader
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"], // CSS loader
+      },
+    ],
   },
+  mode: PRODUCTION ? "production" : "development",
+  externals: {
+    jquery: "jQuery",
+  },
+};
+
+// Frontend webpack configuration
+const webpack = {
+  config: baseWebpackConfig,
 
   changeHandler(err, stats) {
     if (err) {
@@ -151,7 +176,7 @@ const webpack = {
         $.if(
           PRODUCTION,
           $.uglify().on("error", (e) => {
-            log.error("[uglify:error]", e); // Improved error logging
+            log.error("[uglify:error]", e);
           })
         )
       )
@@ -167,7 +192,7 @@ const webpack = {
   },
 
   watch() {
-    const watchConfig = Object.assign(webpack.config, {
+    const watchConfig = Object.assign({}, webpack.config, {
       watch: true,
       devtool: "inline-source-map",
     });
@@ -189,8 +214,99 @@ const webpack = {
   },
 };
 
+// Editor webpack configuration (for Gutenberg blocks)
+const webpackEditor = {
+  config: {
+    ...baseWebpackConfig,
+    externals: {
+      jquery: "jQuery",
+      // WordPress dependencies as externals (don't bundle them)
+      '@wordpress/blocks': ['wp', 'blocks'],
+      '@wordpress/element': ['wp', 'element'],
+      '@wordpress/i18n': ['wp', 'i18n'],
+      '@wordpress/components': ['wp', 'components'],
+      '@wordpress/compose': ['wp', 'compose'],
+      '@wordpress/block-editor': ['wp', 'blockEditor'],
+      '@wordpress/data': ['wp', 'data'],
+      '@wordpress/hooks': ['wp', 'hooks'],
+      'wp-blocks': ['wp', 'blocks'],
+      'wp-element': ['wp', 'element'],
+      'wp-i18n': ['wp', 'i18n'],
+      'wp-components': ['wp', 'components'],
+      'wp-compose': ['wp', 'compose'],
+      'wp-block-editor': ['wp', 'blockEditor'],
+      'wp-data': ['wp', 'data'],
+      'wp-hooks': ['wp', 'hooks'],
+    },
+  },
+
+  changeHandler(err, stats) {
+    if (err) {
+      log.error("[webpack-editor:error]", err.toString({
+        colors: true
+      }));
+    } else {
+      log(
+        "[webpack-editor]",
+        stats.toString({
+          colors: true,
+        })
+      );
+      browser.reload();
+    }
+  },
+
+  build() {
+    return gulp
+      .src(PATHS.editorEntries || 'src/assets/js/editor.js')
+      .pipe(named())
+      .pipe(webpackStream(webpackEditor.config, webpack2))
+      .pipe(
+        $.if(
+          PRODUCTION,
+          $.uglify().on("error", (e) => {
+            log.error("[uglify-editor:error]", e);
+          })
+        )
+      )
+      .pipe($.if((REVISIONING && PRODUCTION) || (REVISIONING && !!yargs.argv.dev), $.rev()))
+      .pipe(gulp.dest(PATHS.dist + "/assets/js"))
+      .pipe(
+        $.if(
+          (REVISIONING && PRODUCTION) || (REVISIONING && !!yargs.argv.dev),
+          $.rev.manifest()
+        )
+      )
+      .pipe(gulp.dest(PATHS.dist + "/assets/js"));
+  },
+
+  watch() {
+    const watchConfig = Object.assign({}, webpackEditor.config, {
+      watch: true,
+      devtool: "inline-source-map",
+    });
+
+    return gulp
+      .src(PATHS.editorEntries || 'src/assets/js/editor.js')
+      .pipe(named())
+      .pipe(
+        webpackStream(watchConfig, webpack2, webpackEditor.changeHandler).on(
+          "error",
+          (err) => {
+            log.error("[webpack-editor:error]", err.toString({
+              colors: true
+            }));
+          }
+        )
+      )
+      .pipe(gulp.dest(PATHS.dist + "/assets/js"));
+  },
+};
+
 gulp.task("webpack:build", webpack.build);
 gulp.task("webpack:watch", webpack.watch);
+gulp.task("webpack-editor:build", webpackEditor.build);
+gulp.task("webpack-editor:watch", webpackEditor.watch);
 
 // Copy images to the "dist" folder
 function images() {
@@ -241,16 +357,33 @@ function reload(done) {
   done();
 }
 
-// Watch for changes
+// Watch for changes (updated to include editor JS)
 function watch() {
   gulp.watch(PATHS.assets, copy);
-  gulp.watch("src/assets/scss/**/*.scss", styles).on("change", (path) => log("File " + colors.bold(colors.magenta(path)) + " changed.")).on("unlink", (path) => log("File " + colors.bold(colors.magenta(path)) + " was removed."));
-  gulp.watch("**/*.php", reload).on("change", (path) => log("File " + colors.bold(colors.magenta(path)) + " changed.")).on("unlink", (path) => log("File " + colors.bold(colors.magenta(path)) + " was removed."));
+  gulp.watch("src/assets/scss/**/*.scss", gulp.series(updateThemeJson, styles))
+    .on("change", (path) => log("File " + colors.bold(colors.magenta(path)) + " changed."))
+    .on("unlink", (path) => log("File " + colors.bold(colors.magenta(path)) + " was removed."));
+  gulp.watch("**/*.php", reload)
+    .on("change", (path) => log("File " + colors.bold(colors.magenta(path)) + " changed."))
+    .on("unlink", (path) => log("File " + colors.bold(colors.magenta(path)) + " was removed."));
   gulp.watch("src/assets/images/**/*", gulp.series(images, reload));
+
+  // Watch editor JS files
+  gulp.watch("src/assets/js/editor/**/*.js", gulp.series("webpack-editor:build", reload))
+    .on("change", (path) => log("Editor file " + colors.bold(colors.magenta(path)) + " changed."))
+    .on("unlink", (path) => log("Editor file " + colors.bold(colors.magenta(path)) + " was removed."));
 }
 
-// Build the "dist" folder by running all of the below tasks
-gulp.task("build", gulp.series(clean, gulp.parallel(styles, "webpack:build", images, copy)));
+// Build the "dist" folder by running all of the below tasks (updated to include editor build)
+gulp.task("build", gulp.series(
+  updateThemeJson,
+  clean,
+  gulp.parallel(styles, "webpack:build", "webpack-editor:build", images, copy)
+));
 
-// Build the site, run the server, and watch for file changes
-gulp.task("default", gulp.series("build", server, gulp.parallel("webpack:watch", watch)));
+// Build the site, run the server, and watch for file changes (updated to include editor watch)
+gulp.task("default", gulp.series(
+  "build",
+  server,
+  gulp.parallel("webpack:watch", "webpack-editor:watch", watch)
+));

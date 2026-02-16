@@ -1,9 +1,5 @@
 <?php if (function_exists('acf_add_local_field_group')) {
-include 'colors.php';
-$color_array = [];
-foreach ($colors as $name => $hex) {
-    $color_array[$hex] = $name;
-}
+
 //Page Options
 acf_add_local_field_group(array(
 	'key' => 'group_5c756aae12c9d',

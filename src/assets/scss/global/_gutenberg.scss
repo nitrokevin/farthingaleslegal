@@ -123,6 +123,15 @@ $gradient in $foundation-gradients {
   }
 }
 
+/** === Inner content use foundation gutters === */
+.is-layout-constrained> :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  padding-inline: var(--wp--custom--foundation-gutter-mobile);
+
+  @include breakpoint(medium) {
+    padding-inline: var(--wp--custom--foundation-gutter-desktop);
+  }
+}
+
 @mixin table-borders($color) {
   @include breakpoint(small){
     border: 2px solid $color;

@@ -1,0 +1,178 @@
+{
+  "version": 3,
+  "settings": {
+    "color": {
+      "custom": false,
+      "customGradient": false,
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "gradients": [
+        {
+          "slug": "primary-radial",
+          "name": "Primary Radial",
+          "gradient": "radial-gradient(ellipse 40% 60% at 55% 60%, hsl(275deg 83% 45%) 0%, hsl(275deg 83% 44%) 10%, hsl(275deg 83% 42%) 15%, hsl(275deg 83% 41%) 19%, hsl(275deg 83% 39%) 23%, hsl(275deg 83% 38%) 27%, hsl(275deg 83% 36%) 31%, hsl(275deg 83% 35%) 34%, hsl(275deg 82% 33%) 38%, hsl(275deg 82% 32%) 41%, hsl(275deg 82% 30%) 45%, hsl(275deg 82% 29%) 48%, hsl(275deg 82% 27%) 51%, hsl(275deg 82% 26%) 55%, hsl(275deg 82% 24%) 58%, hsl(275deg 82% 23%) 61%, hsl(275deg 81% 21%) 65%, hsl(275deg 81% 20%) 68%, hsl(275deg 81% 18%) 72%, hsl(275deg 81% 17%) 76%, hsl(275deg 81% 15%) 80%, hsl(275deg 81% 14%) 84%, hsl(275deg 81% 12%) 90%, hsl(275deg 81% 11%) 100%)"
+        },
+        {
+          "slug": "secondary-radial",
+          "name": "Secondary Radial",
+          "gradient": "radial-gradient(ellipse 40% 60% at 55% 60%, hsl(275deg 83% 21%) 0%, hsl(275deg 83% 21%) 10%, hsl(275deg 83% 20%) 15%, hsl(275deg 83% 20%) 19%, hsl(275deg 83% 19%) 23%, hsl(275deg 83% 19%) 27%, hsl(275deg 83% 18%) 31%, hsl(275deg 83% 18%) 34%, hsl(275deg 82% 17%) 38%, hsl(275deg 82% 17%) 41%, hsl(275deg 82% 16%) 45%, hsl(275deg 82% 16%) 48%, hsl(275deg 82% 15%) 51%, hsl(275deg 82% 15%) 55%, hsl(275deg 82% 14%) 58%, hsl(275deg 82% 14%) 61%, hsl(275deg 81% 13%) 65%, hsl(275deg 81% 13%) 68%, hsl(275deg 81% 12%) 72%, hsl(275deg 81% 12%) 76%, hsl(275deg 81% 11%) 80%, hsl(275deg 81% 11%) 84%, hsl(275deg 81% 10%) 90%, hsl(275deg 81% 10%) 100%)"
+        },
+        {
+          "slug": "light-gray-radial",
+          "name": "Light-gray Radial",
+          "gradient": "radial-gradient(ellipse 40% 60% at 55% 60%, hsl(0deg 0% 90%) 0%, hsl(0deg 0% 89%) 10%, hsl(0deg 0% 88%) 15%, hsl(0deg 0% 87%) 19%, hsl(0deg 0% 86%) 23%, hsl(0deg 0% 85%) 27%, hsl(0deg 0% 84%) 31%, hsl(0deg 0% 83%) 34%, hsl(0deg -1% 82%) 38%, hsl(0deg -1% 81%) 41%, hsl(0deg -1% 80%) 45%, hsl(0deg -1% 79%) 48%, hsl(0deg -1% 77%) 51%, hsl(0deg -1% 76%) 55%, hsl(0deg -1% 75%) 58%, hsl(0deg -1% 74%) 61%, hsl(0deg -2% 73%) 65%, hsl(0deg -2% 72%) 68%, hsl(0deg -2% 71%) 72%, hsl(0deg -2% 70%) 76%, hsl(0deg -2% 69%) 80%, hsl(0deg -2% 68%) 84%, hsl(0deg -2% 67%) 90%, hsl(0deg -2% 66%) 100%)"
+        },
+        {
+          "slug": "medium-gray-radial",
+          "name": "Medium-gray Radial",
+          "gradient": "radial-gradient(ellipse 40% 60% at 55% 60%, hsl(0deg 0% 89%) 0%, hsl(0deg 0% 88%) 10%, hsl(0deg 0% 86%) 15%, hsl(0deg 0% 85%) 19%, hsl(0deg 0% 83%) 23%, hsl(0deg 0% 82%) 27%, hsl(0deg 0% 80%) 31%, hsl(0deg 0% 79%) 34%, hsl(0deg -1% 77%) 38%, hsl(0deg -1% 76%) 41%, hsl(0deg -1% 74%) 45%, hsl(0deg -1% 73%) 48%, hsl(0deg -1% 71%) 51%, hsl(0deg -1% 70%) 55%, hsl(0deg -1% 68%) 58%, hsl(0deg -1% 67%) 61%, hsl(0deg -2% 65%) 65%, hsl(0deg -2% 64%) 68%, hsl(0deg -2% 62%) 72%, hsl(0deg -2% 61%) 76%, hsl(0deg -2% 59%) 80%, hsl(0deg -2% 58%) 84%, hsl(0deg -2% 56%) 90%, hsl(0deg -2% 55%) 100%)"
+        },
+        {
+          "slug": "dark-gray-radial",
+          "name": "Dark-gray Radial",
+          "gradient": "radial-gradient(ellipse 40% 60% at 55% 60%, hsl(0deg 0% 39%) 0%, hsl(0deg 0% 38%) 10%, hsl(0deg 0% 36%) 15%, hsl(0deg 0% 35%) 19%, hsl(0deg 0% 34%) 23%, hsl(0deg 0% 33%) 27%, hsl(0deg 0% 31%) 31%, hsl(0deg 0% 30%) 34%, hsl(0deg -1% 29%) 38%, hsl(0deg -1% 28%) 41%, hsl(0deg -1% 26%) 45%, hsl(0deg -1% 25%) 48%, hsl(0deg -1% 24%) 51%, hsl(0deg -1% 23%) 55%, hsl(0deg -1% 21%) 58%, hsl(0deg -1% 20%) 61%, hsl(0deg -2% 19%) 65%, hsl(0deg -2% 18%) 68%, hsl(0deg -2% 16%) 72%, hsl(0deg -2% 15%) 76%, hsl(0deg -2% 14%) 80%, hsl(0deg -2% 13%) 84%, hsl(0deg -2% 11%) 90%, hsl(0deg -2% 10%) 100%)"
+        },
+        {
+          "slug": "theme-color-1-radial",
+          "name": "Theme-color-1 Radial",
+          "gradient": "radial-gradient(ellipse 40% 60% at 55% 60%, hsl(272deg 76% 90%) 0%, hsl(272deg 76% 89%) 10%, hsl(272deg 76% 89%) 15%, hsl(272deg 76% 88%) 19%, hsl(272deg 76% 87%) 23%, hsl(272deg 76% 86%) 27%, hsl(272deg 76% 86%) 31%, hsl(272deg 76% 85%) 34%, hsl(272deg 75% 84%) 38%, hsl(272deg 75% 83%) 41%, hsl(272deg 75% 83%) 45%, hsl(272deg 75% 82%) 48%, hsl(272deg 75% 81%) 51%, hsl(272deg 75% 80%) 55%, hsl(272deg 75% 80%) 58%, hsl(272deg 75% 79%) 61%, hsl(272deg 74% 78%) 65%, hsl(272deg 74% 77%) 68%, hsl(272deg 74% 77%) 72%, hsl(272deg 74% 76%) 76%, hsl(272deg 74% 75%) 80%, hsl(272deg 74% 74%) 84%, hsl(272deg 74% 74%) 90%, hsl(272deg 74% 73%) 100%)"
+        },
+        {
+          "slug": "theme-color-2-radial",
+          "name": "Theme-color-2 Radial",
+          "gradient": "radial-gradient(ellipse 40% 60% at 55% 60%, hsl(173deg 39% 59%) 0%, hsl(173deg 39% 58%) 10%, hsl(173deg 39% 56%) 15%, hsl(173deg 39% 55%) 19%, hsl(173deg 39% 53%) 23%, hsl(173deg 39% 52%) 27%, hsl(173deg 39% 50%) 31%, hsl(173deg 39% 49%) 34%, hsl(173deg 38% 47%) 38%, hsl(173deg 38% 46%) 41%, hsl(173deg 38% 44%) 45%, hsl(173deg 38% 43%) 48%, hsl(173deg 38% 41%) 51%, hsl(173deg 38% 40%) 55%, hsl(173deg 38% 38%) 58%, hsl(173deg 38% 37%) 61%, hsl(173deg 37% 35%) 65%, hsl(173deg 37% 34%) 68%, hsl(173deg 37% 32%) 72%, hsl(173deg 37% 31%) 76%, hsl(173deg 37% 29%) 80%, hsl(173deg 37% 28%) 84%, hsl(173deg 37% 26%) 90%, hsl(173deg 37% 25%) 100%)"
+        },
+        {
+          "slug": "primary",
+          "name": "Primary Light → Dark",
+          "gradient": "linear-gradient(135deg, #8c37c9, #3c0079)"
+        },
+        {
+          "slug": "secondary",
+          "name": "Secondary Light → Dark",
+          "gradient": "linear-gradient(135deg, #492d5d, #00000d)"
+        },
+        {
+          "slug": "light-gray",
+          "name": "Light-gray Light → Dark",
+          "gradient": "linear-gradient(135deg, #ffffff, #bebebe)"
+        },
+        {
+          "slug": "medium-gray",
+          "name": "Medium-gray Light → Dark",
+          "gradient": "linear-gradient(135deg, #f2f2f2, #a2a2a2)"
+        },
+        {
+          "slug": "dark-gray",
+          "name": "Dark-gray Light → Dark",
+          "gradient": "linear-gradient(135deg, #727272, #222222)"
+        },
+        {
+          "slug": "theme-color-1",
+          "name": "Theme-color-1 Light → Dark",
+          "gradient": "linear-gradient(135deg, #ffffff, #cfc8d5)"
+        },
+        {
+          "slug": "theme-color-2",
+          "name": "Theme-color-2 Light → Dark",
+          "gradient": "linear-gradient(135deg, #74d4c9, #248479)"
+        },
+        {
+          "slug": "primary-secondary",
+          "name": "Primary → Secondary",
+          "gradient": "linear-gradient(135deg, #640FA1, #210535)"
+        },
+        {
+          "slug": "secondary-theme-color-1",
+          "name": "Secondary → Theme-color-1",
+          "gradient": "linear-gradient(135deg, #210535, #F7F0FD)"
+        },
+        {
+          "slug": "primary-theme-color-1",
+          "name": "Primary → Theme-color-1",
+          "gradient": "linear-gradient(135deg, #640FA1, #F7F0FD)"
+        }
+      ],
+      "palette": [
+        {
+          "slug": "primary",
+          "name": "Primary",
+          "color": "#640FA1"
+        },
+        {
+          "slug": "secondary",
+          "name": "Secondary",
+          "color": "#210535"
+        },
+        {
+          "slug": "light-gray",
+          "name": "Light-gray",
+          "color": "#e6e6e6"
+        },
+        {
+          "slug": "medium-gray",
+          "name": "Medium-gray",
+          "color": "#cacaca"
+        },
+        {
+          "slug": "dark-gray",
+          "name": "Dark-gray",
+          "color": "#4A4A4A"
+        },
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#fefefe"
+        },
+        {
+          "slug": "theme-color-1",
+          "name": "Theme-color-1",
+          "color": "#F7F0FD"
+        },
+        {
+          "slug": "theme-color-2",
+          "name": "Theme-color-2",
+          "color": "#4CACA1"
+        }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "base",
+          "name": "Base",
+          "fontFamily": "'Nunito Sans', Helvetica, Roboto, Arial, sans-serif"
+        },
+        {
+          "slug": "mono",
+          "name": "Monospace",
+          "fontFamily": "Consolas, 'Liberation Mono', Courier, monospace"
+        }
+      ]
+    },
+    "border": {
+      "radius": "1rem",
+      "customRadius": false,
+      "defaultRadius": "0.5rem"
+    },
+    "custom": {
+      "foundationGutterMobile": "1.25rem",
+      "foundationGutterDesktop": "1.875rem"
+    },
+    "layout": {
+      "contentSize": "1260px",
+      "wideSize": "1260px"
+    },
+    "blocks": {
+      "core/media-text": {
+        "custom": {
+          "allowedWidths": {
+            "one-third": "33%",
+            "half": "50%",
+            "two-thirds": "66%"
+          }
+        }
+      }
+    }
+  }
+}
