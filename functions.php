@@ -61,6 +61,7 @@ require_once( 'library/colors.php' );
 require_once( 'library/custom-functions.php' );
 
 /** Customizer functions */
+
 require_once( 'library/customizer-native.php' );
 
 /** ACF functions */

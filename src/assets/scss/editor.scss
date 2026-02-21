@@ -10,8 +10,8 @@
 
 @import "global/colors";
 @import "global/gutenberg";
-// @import "components/accordion";
-// @import "components/tab";
+@import "components/accordion";
+@import "components/tab";
 @import "components/carousel";
 
 
@@ -142,3 +142,13 @@ ul.acf-swatch-list .swatch-toggle {
   border-radius: 50%;
   border: 1px solid #aaaaaa;
 }
+
+
+
+aside.block-editor-block-list__block img {width:9rem}
+
+.block-carousel .block-carousel-content .swiper-slide img
+{width:9rem}
+
+
+.block-carousel .block-carousel-content .swiper-wrapper {display: flex;}

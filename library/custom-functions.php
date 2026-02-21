@@ -284,7 +284,6 @@ function opening_times_shortcode($atts) {
         echo '<strong>Office Hours</strong>';
         echo '</p>';
         echo '<ul class="opening-times">';
-        
         foreach ( $opening_times as $time ) {
             $day = isset( $time['day'] ) ? esc_html( $time['day'] ) : '';
             $opening_time = isset( $time['opening_time'] ) ? esc_html( $time['opening_time'] ) : '';
@@ -407,24 +406,22 @@ add_shortcode( 'contact_details', 'contact_details_shortcode' );
 // --- Handle AJAX form submission ---
 add_action('wp_ajax_nopriv_save_email', 'save_email');
 add_action('wp_ajax_save_email', 'save_email');
-
 function save_email() {
-    $email = sanitize_email($_POST['email']);
-    $name  = sanitize_text_field($_POST['user_name']);
-    $file  = esc_url_raw($_POST['file']);
+    $email        = sanitize_email($_POST['email']);
+    $name         = sanitize_text_field($_POST['user_name']);
+    $file         = esc_url_raw($_POST['file']);
+    $mailing_list = !empty($_POST['mailing_list']) && $_POST['mailing_list'] === '1';
+    $opt_in_label = $mailing_list ? 'Yes' : 'No';
 
     if (!is_email($email)) {
         wp_send_json_error('Invalid email');
     }
 
-
-    // Email notification to you
-    $to      = 'kpneal@icloud.com'; // <-- change this
+    $to      = 'info@farthingaleslegal.co.uk';
     $subject = 'New resource download';
-    $message = "A new file was downloaded:\n\nName: $name\nEmail: $email\nFile: $file\nDate: " . date('Y-m-d H:i:s');
+    $message = "A new file was downloaded:\n\nName: $name\nEmail: $email\nFile: $file\nMailing list opt-in: $opt_in_label\nDate: " . date('Y-m-d H:i:s');
     $headers = ['Content-Type: text/plain; charset=UTF-8'];
     wp_mail($to, $subject, $message, $headers);
-
     wp_send_json_success('emailed');
 }
 

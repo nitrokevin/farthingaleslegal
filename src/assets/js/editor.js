@@ -2,7 +2,7 @@
 // This bundles all block editor customizations
 
 // Import column background functionality
-import './editor/customizer-native.js';
+import './editor/customizer-native';
 import './editor/extend-core-columns';
 
 

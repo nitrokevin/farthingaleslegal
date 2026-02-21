@@ -26,7 +26,7 @@ acf_add_local_field_group(array(
             'key' => 'field_intro_button_url',
             'label' => 'Button URL',
             'name' => 'intro_button_url',
-            'type' => 'page_link',
+            'type' => 'url',
             'instructions' => 'Where the button should link to.',
             'required' => 0,
         ),
@@ -456,6 +456,68 @@ function my_acf_admin_head5()
 		border-radius: 50%;
 		border: 1px solid #aaaaaa;
 	}
+
+
+.acf-theme-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+.acf-theme-swatches .swatch-item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.acf-theme-swatches .swatch-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.acf-theme-swatches .swatch {
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    transition: border-color 0.15s ease;
+}
+
+.acf-theme-swatches .swatch--none {
+    background: #fff;
+    position: relative;
+}
+
+.acf-theme-swatches .swatch__cross::before,
+.acf-theme-swatches .swatch__cross::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 2px;
+    background: #cc0000;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.acf-theme-swatches .swatch__cross::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.acf-theme-swatches input[type="radio"]:checked + .swatch {
+    border-color: #640FA1;
+    box-shadow: 0 0 0 2px #640FA1;
+}
+
+.acf-theme-swatches .swatch-item:hover .swatch {
+    border-color: #999;
+}
 </style>
 <?php
 

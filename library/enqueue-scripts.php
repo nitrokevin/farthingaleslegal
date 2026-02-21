@@ -67,6 +67,15 @@ if ( ! function_exists( 'foundationpress_scripts' ) ) :
 		null,
 		true
 	);
+	add_action( 'customize_controls_enqueue_scripts', function() {
+	wp_enqueue_script(
+		'foundation-editor',
+		get_template_directory_uri() . '/dist/assets/js/editor.js',
+		array( 'jquery', 'customize-controls' ),
+		'1.0',
+		true
+	);
+});
 		// Enqueue FontAwesome from CDN. Uncomment the line below if you need FontAwesome.
 		//wp_enqueue_script( 'fontawesome', 'https://use.fontawesome.com/5016a31c8c.js', array(), '4.7.0', true );
 		wp_enqueue_script( 'FontAwesome', '//kit.fontawesome.com/79a95a0ad8.js', array(), '7.0.0', false );

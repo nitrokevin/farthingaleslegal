@@ -7,6 +7,7 @@
     "icon": "index-card",
     "keywords": ["tab"],
     "acf": {
+          "blockVersion": 3,
         "mode": "preview",
         "renderTemplate": "template-parts/blocks/tab.php"
     },

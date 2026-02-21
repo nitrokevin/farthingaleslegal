@@ -7,6 +7,7 @@
     "category": "avidd-blocks",
     "keywords": ["50/50", "split"],
     "acf": {
+        "blockVersion": 3,
         "mode": "preview",
         "renderTemplate": "template-parts/blocks/50-50.php"
     },

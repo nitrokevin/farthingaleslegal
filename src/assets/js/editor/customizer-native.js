@@ -8,7 +8,7 @@
   // Nav background color
   wp.customize('color_palette_setting_0', function (value) {
     value.bind(function (newval) {
-      $('.top-bar, .top-bar ul, .title-bar, #mega-menu-wrap-top-bar-r').css('background-color', newval);
+      $('.top-bar, .top-bar ul, .title-bar').css('background-color', newval);
     });
   });
 

@@ -71,23 +71,19 @@ if ($term && !is_wp_error($term)) {
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
-
   <p><strong>Please enter your name and email address to access the file.</strong></p>
-
-<form id="emailCaptureForm">
-  <label for="name">Name</label>
-  <input type="text" id="name" name="name" required>
-
-  <label for="email">Email</label>
-  <input type="email" id="email" name="email" required>
-
-  <input type="hidden" id="file_url" name="file_url">
-
-  <button type="submit" class="button">Download</button>
-
-
-</form>
-
+  <form id="emailCaptureForm">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+    <div class="mailing-list-opt-in">
+      <input type="checkbox" id="mailing_list" name="mailing_list" value="1">
+      <label for="mailing_list">I would like to receive helpful legal updates and practical insights by email</label>
+    </div>
+    <input type="hidden" id="file_url" name="file_url">
+    <button type="submit" class="button">Download</button>
+  </form>
   <div id="formMessage" class="callout success" style="display:none;">
     Thank you — your download will start shortly.
   </div>
