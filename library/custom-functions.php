@@ -417,14 +417,104 @@ function save_email() {
         wp_send_json_error('Invalid email');
     }
 
-    $to      = 'info@farthingaleslegal.co.uk';
-    $subject = 'New resource download';
-    $message = "A new file was downloaded:\n\nName: $name\nEmail: $email\nFile: $file\nMailing list opt-in: $opt_in_label\nDate: " . date('Y-m-d H:i:s');
-    $headers = ['Content-Type: text/plain; charset=UTF-8'];
+    // Get filename from URL
+    $filename = basename(parse_url($file, PHP_URL_PATH));
+    $filename = urldecode($filename);
+
+    $to      = get_theme_mod('resource_download_email', 'info@farthingaleslegal.co.uk');
+    $subject = 'New resource download — ' . $name;
+    $headers = ['Content-Type: text/html; charset=UTF-8'];
+
+    $logo_url = get_theme_mod('email_logo', '');
+
+    $message = '
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body style="margin:0;padding:0;background-color:#f4f4f4;font-family:Arial,sans-serif;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4;padding:30px 0;">
+            <tr>
+                <td align="center">
+                    <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:6px;overflow:hidden;">
+                        
+                        <!-- Header -->
+                        <tr>
+                            <td style="background-color:#ffffff;padding:30px;text-align:center;">
+                                ' . ($logo_url ? '<img src="' . esc_url($logo_url) . '" alt="Logo" style="max-height:60px;max-width:200px;">' : '<h2 style="color:#ffffff;margin:0;">' . get_bloginfo('name') . '</h2>') . '
+                            </td>
+                        </tr>
+
+                        <!-- Body -->
+                        <tr>
+                            <td style="padding:40px 30px;">
+                                <h2 style="margin:0 0 20px;color:#1a1a1a;font-size:20px;">New Resource Download</h2>
+                                <p style="margin:0 0 30px;color:#555555;font-size:15px;">Someone has downloaded a resource from your website.</p>
+                                
+                                <!-- Details table -->
+                                <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eeeeee;border-radius:4px;">
+                                    <tr>
+                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;width:35%;">
+                                            <strong style="color:#1a1a1a;font-size:14px;">Name</strong>
+                                        </td>
+                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                            <span style="color:#555555;font-size:14px;">' . esc_html($name) . '</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
+                                            <strong style="color:#1a1a1a;font-size:14px;">Email</strong>
+                                        </td>
+                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                            <a href="mailto:' . esc_attr($email) . '" style="color:#555555;font-size:14px;">' . esc_html($email) . '</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
+                                            <strong style="color:#1a1a1a;font-size:14px;">File</strong>
+                                        </td>
+                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                            <a href="' . esc_url($file) . '" style="color:#0073aa;font-size:14px;">' . esc_html($filename) . '</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
+                                            <strong style="color:#1a1a1a;font-size:14px;">Mailing List</strong>
+                                        </td>
+                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                            <span style="color:#555555;font-size:14px;">' . $opt_in_label . '</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:12px 16px;background:#f9f9f9;">
+                                            <strong style="color:#1a1a1a;font-size:14px;">Date</strong>
+                                        </td>
+                                        <td style="padding:12px 16px;">
+                                            <span style="color:#555555;font-size:14px;">' . date('j F Y, g:ia') . '</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td style="padding:20px 30px;background:#f9f9f9;border-top:1px solid #eeeeee;text-align:center;">
+                                <p style="margin:0;color:#999999;font-size:12px;">' . get_bloginfo('name') . ' &mdash; ' . get_bloginfo('url') . '</p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>';
+
     wp_mail($to, $subject, $message, $headers);
     wp_send_json_success('emailed');
 }
-
 
 function get_latest_tagged_post( string $tag_slug, array $args = [] ) {
 
@@ -544,3 +634,43 @@ add_action('wpcf7_mail_sent', function() {
         return 'text/html';
     });
 });
+
+
+
+
+// Shortcode for booking link
+function avidd_booking_link_shortcode() {
+	return esc_url( get_theme_mod( 'booking_link' ) );
+}
+add_shortcode( 'booking_link', 'avidd_booking_link_shortcode' );
+
+// Replace #booking_link# in block and menu output
+add_filter( 'render_block', function( $block_content, $block ) {
+	if ( empty( $block_content ) ) {
+		return $block_content;
+	}
+	$booking_link = esc_url( get_theme_mod( 'booking_link' ) );
+	if ( $booking_link ) {
+		$block_content = str_replace( '#booking_link#', $booking_link, $block_content );
+	}
+	return $block_content;
+}, 10, 2 );
+
+add_filter( 'nav_menu_link_attributes', function( $atts, $item, $args, $depth ) {
+	$booking_link = esc_url( get_theme_mod( 'booking_link' ) );
+	if ( isset( $atts['href'] ) && $atts['href'] === '#booking_link#' && $booking_link ) {
+		$atts['href'] = $booking_link;
+	}
+	return $atts;
+}, 10, 4 );
+
+add_filter( 'acf/load_value/name=intro_button_url', function( $value, $post_id, $field ) {
+    if ( empty( $value ) ) {
+        return $value;
+    }
+    $booking_link = esc_url( get_theme_mod( 'booking_link' ) );
+    if ( $booking_link ) {
+        $value = str_replace( '#booking_link#', $booking_link, $value );
+    }
+    return $value;
+}, 10, 3 );

@@ -484,7 +484,7 @@ function avidd_customize_register( $wp_customize ) {
 		'panel' => 'design_layout_panel',
 	));
 	
-	$wp_customize->add_section( 'defaul_content_section', array(
+	$wp_customize->add_section( 'default_content_section', array(
 		'title' => __( 'Default content', 'avidd' ),
 		'panel' => 'design_layout_panel',
 	));
@@ -513,6 +513,11 @@ function avidd_customize_register( $wp_customize ) {
 	
 	$wp_customize->add_section( 'email_notifications_section', array(
 		'title' => __( 'Email Notifications', 'avidd' ),
+		'panel' => 'notifications_panel',
+	));
+
+		$wp_customize->add_section( 'resources_notifications_section', array(
+		'title' => __( 'Resources Notifications', 'avidd' ),
 		'panel' => 'notifications_panel',
 	));
 
@@ -890,7 +895,7 @@ function avidd_customize_register( $wp_customize ) {
 	));
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'post_default_image', array(
 		'label'   => __( 'Default Post Image', 'avidd' ),
-		'section' => 'defaul_content_section',
+		'section' => 'default_content_section',
 	)));
 	
 	// Default Event Image
@@ -900,8 +905,18 @@ function avidd_customize_register( $wp_customize ) {
 	));
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'event_default_image', array(
 		'label'   => __( 'Default Event Image', 'avidd' ),
-		'section' => 'defaul_content_section',
+		'section' => 'default_content_section',
 	)));
+			$wp_customize->add_setting( "booking_link", array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		));
+		$wp_customize->add_control( "booking_link", array(
+			'label'   => __( 'Booking Link', 'avidd' ),
+			'section'         => 'default_content_section',
+			'type'            => 'url',
+
+		));
 
 	// ============================================
 	// NOTIFICATIONS
@@ -943,8 +958,23 @@ function avidd_customize_register( $wp_customize ) {
 		'label'   => __( 'Email logo', 'avidd' ),
 		'section' => 'email_notifications_section',
 	)));
+	// Resource Download Notifications
+
+   $wp_customize->add_setting('resource_download_email', [
+        'default'           => 'info@farthingaleslegal.co.uk',
+        'sanitize_callback' => 'sanitize_email',
+        'type'              => 'theme_mod',
+    ]);
+
+    $wp_customize->add_control('resource_download_email', [
+        'label'   => 'Resource Download Notification Email',
+        'section' => 'resources_notifications_section',
+        'type'    => 'email',
+    ]);
 }
 add_action( 'customize_register', 'avidd_customize_register' );
+
+
 
 // ============================================
 // SANITIZATION

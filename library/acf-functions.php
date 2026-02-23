@@ -26,7 +26,7 @@ acf_add_local_field_group(array(
             'key' => 'field_intro_button_url',
             'label' => 'Button URL',
             'name' => 'intro_button_url',
-            'type' => 'url',
+            'type' => 'text',
             'instructions' => 'Where the button should link to.',
             'required' => 0,
         ),

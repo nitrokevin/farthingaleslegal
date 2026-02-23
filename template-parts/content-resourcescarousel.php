@@ -49,7 +49,7 @@ if ($term && !is_wp_error($term)) {
                 if ($thumbnail_url) :
             ?>
                 <div class="swiper-slide">
-                        <a href="<?php echo esc_url($file_url); ?>" 
+                        <a href="#" 
                 class="download-link" 
                 data-file-url="<?php echo esc_url($file_url); ?>">
                 <img src="<?php echo esc_url($thumbnail_url[0]); ?>" 

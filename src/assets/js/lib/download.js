@@ -1,56 +1,53 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Only run if there is a download link AND the modal exists
   const modalEl = document.getElementById('downloadModal');
-  const downloadLinks = document.querySelectorAll('.download-link');
   const form = document.getElementById('emailCaptureForm');
 
-  if (!modalEl || downloadLinks.length === 0 || !form) {
-    return; // exit if modal or download links are not present
+  if (!modalEl || !form) {
+    return;
   }
 
   const modal = new Foundation.Reveal($(modalEl));
   const emailInput = document.getElementById('email');
   const nameInput = document.getElementById('name');
   const fileInput = document.getElementById('file_url');
+  const mailingListInput = document.getElementById('mailing_list');
   const message = document.getElementById('formMessage');
   const submitBtn = form.querySelector('button[type="submit"]');
   let currentFile = '';
 
-  // Intercept download clicks
-  downloadLinks.forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      currentFile = this.dataset.fileUrl;
+  // Use event delegation on document rather than direct listeners on links
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('.download-link');
+    if (!link) return;
 
-      // If already submitted before, open file directly
-      if (document.cookie.includes('emailCaptured=true')) {
-        openFile(currentFile);
-        return;
-      }
+    e.preventDefault();
+    currentFile = link.dataset.fileUrl;
 
-      // Set hidden field and show modal
-      fileInput.value = currentFile;
-      emailInput.value = '';
-      nameInput.value = '';
-      message.style.display = 'none';
-      form.style.display = 'block';
-      modal.open();
-    });
+    if (document.cookie.includes('emailCaptured=true')) {
+      openFile(currentFile);
+      return;
+    }
+
+    fileInput.value = currentFile;
+    emailInput.value = '';
+    nameInput.value = '';
+    message.style.display = 'none';
+    form.style.display = 'block';
+    modal.open();
   });
 
-  // Handle form submission
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const email = emailInput.value.trim();
     const name = nameInput.value.trim();
     const file = fileInput.value;
+    const mailingList = mailingListInput.checked ? '1' : '0';
 
     if (!email || !name) return;
 
     submitBtn.disabled = true;
 
-    // Fallback: open a blank tab immediately to satisfy browser pop-up rules
     const newTab = window.open('', '_blank');
 
     fetch(ajaxData.ajaxUrl, {
@@ -62,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function () {
           action: 'save_email',
           user_name: name,
           email: email,
-          file: file
+          file: file,
+          mailing_list: mailingList
         })
       })
       .then(res => res.json())
@@ -70,19 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
         form.style.display = 'none';
         message.style.display = 'block';
 
-        // Set cookie
         const d = new Date();
         d.setTime(d.getTime() + 365 * 24 * 60 * 60 * 1000);
         document.cookie = `emailCaptured=true;path=/;expires=${d.toUTCString()}`;
 
-        // Open file in new tab or fallback
         if (newTab) {
           newTab.location = file;
         } else {
           window.location.href = file;
         }
 
-        // Close modal shortly after
         setTimeout(() => {
           modal.close();
         }, 500);
@@ -97,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 
-  // Helper: opens a file in a new tab
   function openFile(url) {
     const tab = window.open('', '_blank');
     if (tab) {
