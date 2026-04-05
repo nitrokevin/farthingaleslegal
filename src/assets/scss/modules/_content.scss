@@ -37,7 +37,7 @@
     }
 
     @include breakpoint(medium) {
-      @include xy-cell(8);
+      @include xy-cell(9);
     }
     &.post{
        margin-top: 3rem;
@@ -56,7 +56,7 @@
     }
 
     @include breakpoint(medium) {
-      @include xy-cell(4);
+      @include xy-cell(3);
       margin-top: 1rem;
     }
     .wp-block-latest-posts__list{

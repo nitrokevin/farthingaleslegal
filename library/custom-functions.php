@@ -402,119 +402,125 @@ function contact_details_shortcode( $atts ) {
     return ob_get_clean();
 }
 add_shortcode( 'contact_details', 'contact_details_shortcode' );
+// Handle capture and download
+add_action('init', function() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'capture_and_download') {
+        
+        $email        = sanitize_email($_POST['email']);
+        $name         = sanitize_text_field($_POST['user_name']);
+        $file         = esc_url_raw($_POST['file']);
+        $mailing_list = !empty($_POST['mailing_list']) && $_POST['mailing_list'] === '1';
+        $opt_in_label = $mailing_list ? 'Yes' : 'No';
 
-// --- Handle AJAX form submission ---
-add_action('wp_ajax_nopriv_save_email', 'save_email');
-add_action('wp_ajax_save_email', 'save_email');
-function save_email() {
-    $email        = sanitize_email($_POST['email']);
-    $name         = sanitize_text_field($_POST['user_name']);
-    $file         = esc_url_raw($_POST['file']);
-    $mailing_list = !empty($_POST['mailing_list']) && $_POST['mailing_list'] === '1';
-    $opt_in_label = $mailing_list ? 'Yes' : 'No';
+        if (!is_email($email) || empty($file)) {
+            wp_redirect(home_url());
+            exit;
+        }
 
-    if (!is_email($email)) {
-        wp_send_json_error('Invalid email');
+        // Get filename from URL
+        $filename = basename(parse_url($file, PHP_URL_PATH));
+        $filename = urldecode($filename);
+
+        $to      = get_theme_mod('resource_download_email', 'info@farthingaleslegal.co.uk');
+        $subject = 'New resource download — ' . $name;
+        $headers = ['Content-Type: text/html; charset=UTF-8'];
+
+        $logo_url = get_theme_mod('email_logo', '');
+
+        $message = '
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body style="margin:0;padding:0;background-color:#f4f4f4;font-family:Arial,sans-serif;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4;padding:30px 0;">
+                <tr>
+                    <td align="center">
+                        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:6px;overflow:hidden;">
+                            
+                            <!-- Header -->
+                            <tr>
+                                <td style="background-color:#ffffff;padding:30px;text-align:center;">
+                                    ' . ($logo_url ? '<img src="' . esc_url($logo_url) . '" alt="Logo" style="max-height:60px;max-width:200px;">' : '<h2 style="color:#1a1a1a;margin:0;">' . get_bloginfo('name') . '</h2>') . '
+                                </td>
+                            </tr>
+
+                            <!-- Body -->
+                            <tr>
+                                <td style="padding:40px 30px;">
+                                    <h2 style="margin:0 0 20px;color:#1a1a1a;font-size:20px;">New Resource Download</h2>
+                                    <p style="margin:0 0 30px;color:#555555;font-size:15px;">Someone has downloaded a resource from your website.</p>
+                                    
+                                    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eeeeee;border-radius:4px;">
+                                        <tr>
+                                            <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;width:35%;">
+                                                <strong style="color:#1a1a1a;font-size:14px;">Name</strong>
+                                            </td>
+                                            <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                                <span style="color:#555555;font-size:14px;">' . esc_html($name) . '</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
+                                                <strong style="color:#1a1a1a;font-size:14px;">Email</strong>
+                                            </td>
+                                            <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                                <a href="mailto:' . esc_attr($email) . '" style="color:#555555;font-size:14px;">' . esc_html($email) . '</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
+                                                <strong style="color:#1a1a1a;font-size:14px;">File</strong>
+                                            </td>
+                                            <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                                <a href="' . esc_url($file) . '" style="color:#0073aa;font-size:14px;">' . esc_html($filename) . '</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
+                                                <strong style="color:#1a1a1a;font-size:14px;">Mailing List</strong>
+                                            </td>
+                                            <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
+                                                <span style="color:#555555;font-size:14px;">' . $opt_in_label . '</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:12px 16px;background:#f9f9f9;">
+                                                <strong style="color:#1a1a1a;font-size:14px;">Date</strong>
+                                            </td>
+                                            <td style="padding:12px 16px;">
+                                                <span style="color:#555555;font-size:14px;">' . date('j F Y, g:ia') . '</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <!-- Footer -->
+                            <tr>
+                                <td style="padding:20px 30px;background:#f9f9f9;border-top:1px solid #eeeeee;text-align:center;">
+                                    <p style="margin:0;color:#999999;font-size:12px;">' . get_bloginfo('name') . ' &mdash; ' . get_bloginfo('url') . '</p>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>';
+
+        wp_mail($to, $subject, $message, $headers);
+
+        // Set cookie server-side
+        setcookie('emailCaptured', 'true', time() + (365 * 24 * 60 * 60), '/');
+
+        // Redirect to file
+        wp_redirect($file);
+        exit;
     }
-
-    // Get filename from URL
-    $filename = basename(parse_url($file, PHP_URL_PATH));
-    $filename = urldecode($filename);
-
-    $to      = get_theme_mod('resource_download_email', 'info@farthingaleslegal.co.uk');
-    $subject = 'New resource download — ' . $name;
-    $headers = ['Content-Type: text/html; charset=UTF-8'];
-
-    $logo_url = get_theme_mod('email_logo', '');
-
-    $message = '
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body style="margin:0;padding:0;background-color:#f4f4f4;font-family:Arial,sans-serif;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4;padding:30px 0;">
-            <tr>
-                <td align="center">
-                    <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:6px;overflow:hidden;">
-                        
-                        <!-- Header -->
-                        <tr>
-                            <td style="background-color:#ffffff;padding:30px;text-align:center;">
-                                ' . ($logo_url ? '<img src="' . esc_url($logo_url) . '" alt="Logo" style="max-height:60px;max-width:200px;">' : '<h2 style="color:#ffffff;margin:0;">' . get_bloginfo('name') . '</h2>') . '
-                            </td>
-                        </tr>
-
-                        <!-- Body -->
-                        <tr>
-                            <td style="padding:40px 30px;">
-                                <h2 style="margin:0 0 20px;color:#1a1a1a;font-size:20px;">New Resource Download</h2>
-                                <p style="margin:0 0 30px;color:#555555;font-size:15px;">Someone has downloaded a resource from your website.</p>
-                                
-                                <!-- Details table -->
-                                <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eeeeee;border-radius:4px;">
-                                    <tr>
-                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;width:35%;">
-                                            <strong style="color:#1a1a1a;font-size:14px;">Name</strong>
-                                        </td>
-                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
-                                            <span style="color:#555555;font-size:14px;">' . esc_html($name) . '</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
-                                            <strong style="color:#1a1a1a;font-size:14px;">Email</strong>
-                                        </td>
-                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
-                                            <a href="mailto:' . esc_attr($email) . '" style="color:#555555;font-size:14px;">' . esc_html($email) . '</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
-                                            <strong style="color:#1a1a1a;font-size:14px;">File</strong>
-                                        </td>
-                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
-                                            <a href="' . esc_url($file) . '" style="color:#0073aa;font-size:14px;">' . esc_html($filename) . '</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:12px 16px;background:#f9f9f9;border-bottom:1px solid #eeeeee;">
-                                            <strong style="color:#1a1a1a;font-size:14px;">Mailing List</strong>
-                                        </td>
-                                        <td style="padding:12px 16px;border-bottom:1px solid #eeeeee;">
-                                            <span style="color:#555555;font-size:14px;">' . $opt_in_label . '</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:12px 16px;background:#f9f9f9;">
-                                            <strong style="color:#1a1a1a;font-size:14px;">Date</strong>
-                                        </td>
-                                        <td style="padding:12px 16px;">
-                                            <span style="color:#555555;font-size:14px;">' . date('j F Y, g:ia') . '</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-
-                        <!-- Footer -->
-                        <tr>
-                            <td style="padding:20px 30px;background:#f9f9f9;border-top:1px solid #eeeeee;text-align:center;">
-                                <p style="margin:0;color:#999999;font-size:12px;">' . get_bloginfo('name') . ' &mdash; ' . get_bloginfo('url') . '</p>
-                            </td>
-                        </tr>
-
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </body>
-    </html>';
-
-    wp_mail($to, $subject, $message, $headers);
-    wp_send_json_success('emailed');
-}
+});
 
 function get_latest_tagged_post( string $tag_slug, array $args = [] ) {
 

@@ -7,7 +7,7 @@
 
 // Ensure ACF is available
 if (!function_exists('get_field')) {
-    echo '<p><em>' . esc_html__('Advanced Custom Fields is required for this block.', 'ashwoodhomes') . '</em></p>';
+    echo '<p><em>' . esc_html__('Advanced Custom Fields is required for this block.', 'avidd') . '</em></p>';
     return;
 }
 
@@ -104,11 +104,11 @@ $repeater_field = $options_page === 'faqs' ? 'faq_repeater' : ($options_page ===
         <div class="block-global-content-content cell">
             <?php
             if (!$options_page) {
-                echo '<p><em>' . esc_html__('No options page selected.', 'ashwoodhomes') . '</em></p>';
+                echo '<p><em>' . esc_html__('No options page selected.', 'avidd') . '</em></p>';
             } elseif (!$repeater_field) {
-                echo '<p><em>' . esc_html__('Invalid options page selected.', 'ashwoodhomes') . '</em></p>';
+                echo '<p><em>' . esc_html__('Invalid options page selected.', 'avidd') . '</em></p>';
             } elseif (!have_rows($repeater_field, $options_context)) {
-                echo '<p><em>' . esc_html__('No data found for this options page.', 'ashwoodhomes') . '</em></p>';
+                echo '<p><em>' . esc_html__('No data found for this options page.', 'avidd') . '</em></p>';
             } else {
                 // Render the selected repeater
                 if ($layout === 'accordion') {
@@ -187,12 +187,11 @@ $repeater_field = $options_page === 'faqs' ? 'faq_repeater' : ($options_page ===
                         $heading = get_sub_field('header') ?: get_sub_field('name') ?: ucwords(str_replace('_', ' ', $repeater_field));
                         echo '<div class="global-content-column-first cell small-12 medium-4 medium-offset-1" >';
                        
-                        echo '<p>' . esc_html('LOCAL COMMUNITY FEEDBACK') . '</p>';
                         echo '<p>' . esc_html($heading) . '</p>';
                         echo '<hr class="bottom-line">';
                         echo '</div>';
                         echo '<div class="global-content-column-last cell small-12 medium-7">';
-                        echo '<p>' . esc_html('OUR RESPONSE') . '</p>';
+
                         
                         $subfields = get_row(true);
                         foreach ($subfields as $sub_key => $sub_value) {

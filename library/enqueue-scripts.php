@@ -60,13 +60,7 @@ if ( ! function_exists( 'foundationpress_scripts' ) ) :
 		wp_localize_script('foundation', 'ajaxData', [
   'ajaxUrl' => admin_url('admin-ajax.php'),
 ]);
-		wp_enqueue_script(
-		'foundation-editor',
-		get_template_directory_uri() . '/dist/assets/js/editor.js', // Adjust path as needed
-		array( 'jquery' ),
-		null,
-		true
-	);
+	
 	add_action( 'customize_controls_enqueue_scripts', function() {
 	wp_enqueue_script(
 		'foundation-editor',
